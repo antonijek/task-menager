@@ -1,8 +1,20 @@
 .navbar {
   display: flex;
-  justify-content: end;
+  justify-content: space-between;
+  background-color: var(--primary-color);
+  padding: 2%;
+  align-items: center;
 }
 .navbar__tab {
-  padding: 1% 5%;
+  padding: 1% 3%;
   border-radius: 5px;
+  font-size: 1.5vw;
+  background-color: rgba(56, 133, 89, 0.668);
+  color: white;
+  height: 10%;
+}
+.navbar__title {
+  color: rgba(56, 133, 89, 0.668);
+  font-size: 3vw;
+  margin: 0;
 }

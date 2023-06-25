@@ -1,24 +1,15 @@
 import React, { useState } from "react";
 import classes from "./home.module.scss";
 import ColumnContainer from "../../components/column-container/ColumnContainer";
-import { allTasks } from "../../assets/myLists";
+import { allTasks } from "../../my-constants/myTasks";
+import MyInput from "../../components/my-input/MyInput";
 
 const Home = () => {
   const [tasks, setTasks] = useState(allTasks);
 
-  const searchTask = (arr, e) => {
-    let filteredArr = arr.map((item) => {
-      return {
-        listName: item.listName,
-        tasks: item.tasks.filter((task) => task.title.includes(e.target.value)),
-      };
-    });
-    setTasks(filteredArr);
-  };
-
   return (
     <div>
-      <input type="text" onChange={(e) => searchTask(allTasks, e)} />
+      <MyInput setTasks={setTasks} />
       <div className={classes["home"]}>
         {tasks.map((item, index) => (
           <ColumnContainer

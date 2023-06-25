@@ -1,3 +1,9 @@
+:root {
+  --primary-color: rgb(217, 236, 236);
+  --secondary-color: rgb(173, 191, 205);
+  box-sizing: border-box;
+}
+
 .main-container {
   margin-left: 10%;
   margin-right: 10%;
