@@ -1,27 +1,28 @@
 import React from "react";
-import { allTasks } from "../../my-constants/myTasks";
-import classes from "./my-input.module.scss";
 
-const MyInput = ({ setTasks }) => {
-  const searchTask = (arr, e) => {
-    let filteredArr = arr.map((item) => {
-      return {
-        listName: item.listName,
-        tasks: item.tasks.filter((task) =>
-          task.title.toLowerCase().includes(e.target.value.toLowerCase())
-        ),
-      };
-    });
-    setTasks(filteredArr);
-  };
-
+const MyInput = ({
+  label = "",
+  className = "",
+  placeholder = "",
+  type = "text",
+  onChange,
+  value = "",
+  name = "",
+}) => {
   return (
-    <input
-      className={classes["my-input"]}
-      placeholder="Search"
-      type="text"
-      onChange={(e) => searchTask(allTasks, e)}
-    />
+    <div>
+      <div>
+        <label htmlFor="">{label}</label>
+      </div>
+      <input
+        name={name}
+        className={className}
+        placeholder={placeholder}
+        type={type}
+        onChange={onChange}
+        value={value}
+      />
+    </div>
   );
 };
 
