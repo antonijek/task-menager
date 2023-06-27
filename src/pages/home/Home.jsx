@@ -10,16 +10,18 @@ const Home = ({ tasks, setTasks }) => {
 
   const searchTask = (arr, e) => {
     setSearchInput(e.target.value);
-    let filteredArr = arr.map((item) => {
-      return {
-        listName: item.listName,
-        tasks: item.tasks.filter((task) =>
-          task.title.toLowerCase().includes(e.target.value.toLowerCase())
-        ),
-      };
-    });
+    let filteredArr = arr.filter((item) =>
+      item.title.toLowerCase().includes(e.target.value.toLowerCase())
+    );
+
     setCopytasks(filteredArr);
   };
+  let wishList = copyTasks.filter((item) => item.status === "Wish List");
+  let toDo = copyTasks.filter((item) => item.status === "To-Do List");
+  let inProgress = copyTasks.filter(
+    (item) => item.status === "In-Progress List"
+  );
+  let done = copyTasks.filter((item) => item.status === "Done List");
 
   return (
     <div>
@@ -30,13 +32,10 @@ const Home = ({ tasks, setTasks }) => {
         value={searchInput}
       />
       <div className={classes["home"]}>
-        {copyTasks.map((item, index) => (
-          <ColumnContainer
-            key={index}
-            list={item.tasks}
-            columnTitle={item.listName}
-          />
-        ))}
+        <ColumnContainer list={wishList} columnTitle="Wish List" />
+        <ColumnContainer list={toDo} columnTitle="To Do" />
+        <ColumnContainer list={inProgress} columnTitle="In-Progress List" />
+        <ColumnContainer list={done} columnTitle="Done List" />
       </div>
     </div>
   );

@@ -5,23 +5,12 @@ import MyForm from "../../components/my-form/MyForm";
 
 const TaskMenagment = ({ tasks, setTasks }) => {
   const [editableTask, setEditableTask] = useState();
-  const [editableList, setEditableList] = useState();
   const [taskIndex, setTaskIndex] = useState();
 
-  const onEditTask = (task, obj) => {
-    setTaskIndex(obj.tasks.indexOf(task));
-    let choosenList = {
-      listName: obj.listName,
-      tasks: obj.tasks.filter(
-        (item) =>
-          item.title !== task.title && item.description !== task.description
-      ),
-    };
-    setEditableList(choosenList);
+  const onEditTask = (task) => {
     setEditableTask(task);
+    setTaskIndex(tasks.indexOf(task));
   };
-
-  console.log(taskIndex);
 
   return (
     <div>
@@ -31,8 +20,6 @@ const TaskMenagment = ({ tasks, setTasks }) => {
         setTasks={setTasks}
         editableTask={editableTask}
         setEditableTask={setEditableTask}
-        editableList={editableList}
-        setEditableList={setEditableList}
       />
       <div className={classes["buttons"]}>
         <button>All tasks</button>
@@ -52,28 +39,26 @@ const TaskMenagment = ({ tasks, setTasks }) => {
           </tr>
         </thead>
         <tbody>
-          {tasks.map((list) =>
-            list.tasks.map((task) => (
-              <tr key={task.title}>
-                <td>{task.title}</td>
-                <td>{list.listName}</td>
-                <td>
-                  <button
-                    className={`${classes.btn} ${classes.edit}`}
-                    onClick={() => onEditTask(task, list)}
-                  >
-                    Edit
-                  </button>
-                  <button
-                    className={`${classes.btn} ${classes.delete}`}
-                    onClick={() => onDeleteTask(task)}
-                  >
-                    Delete
-                  </button>
-                </td>
-              </tr>
-            ))
-          )}
+          {tasks.map((task) => (
+            <tr key={task.title}>
+              <td>{task.title}</td>
+              <td>{task.status}</td>
+              <td>
+                <button
+                  className={`${classes.btn} ${classes.edit}`}
+                  onClick={() => onEditTask(task)}
+                >
+                  Edit
+                </button>
+                <button
+                  className={`${classes.btn} ${classes.delete}`}
+                  onClick={() => onDeleteTask(task)}
+                >
+                  Delete
+                </button>
+              </td>
+            </tr>
+          ))}
         </tbody>
       </table>
     </div>

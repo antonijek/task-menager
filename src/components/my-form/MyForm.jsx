@@ -8,8 +8,6 @@ const MyForm = ({
   taskIndex,
   editableTask,
   setEditableTask,
-  editableList,
-  setEditableList,
   tasks,
   setTasks,
 }) => {
@@ -20,25 +18,14 @@ const MyForm = ({
 
   const edit = (e) => {
     e.preventDefault();
-    let copyList = editableList;
-    let onlyTasks = copyList.tasks;
-    let orderedTasks = onlyTasks
+
+    let orderedTasks = tasks
       .slice(0, taskIndex)
       .concat(editableTask)
-      .concat(onlyTasks.slice(taskIndex));
-    copyList.tasks = orderedTasks;
-    setEditableList(copyList);
-
-    let choosenTask = tasks.filter(
-      (item) => item.listName === editableList.listName
-    );
-    let taskObject = choosenTask[0];
-    let index = tasks.indexOf(taskObject);
-    let copy = [...tasks];
-    copy[index] = editableList;
-    setTasks(copy);
+      .concat(tasks.slice(taskIndex + 1));
+    setTasks(orderedTasks);
   };
-  console.log(editableTask);
+
   return (
     <form action="" className={classes["my-form"]}>
       <h2>Add new task</h2>
@@ -50,7 +37,7 @@ const MyForm = ({
         name="title"
         onChange={(e) => editTask(e)}
       />
-      <MyInput
+      <textarea
         label="Description"
         className={style["my-input"]}
         value={editableTask?.description}
@@ -63,14 +50,14 @@ const MyForm = ({
         className={classes["select"]}
         onChange={editTask}
       >
-        <option name="status" value={editableList?.listName}>
-          {editableList?.listName}
+        <option name="status" value={editableTask?.status}>
+          {editableTask?.status}
         </option>
         {tasks
-          .filter((item) => item.listName !== editableList?.listName)
-          .map((el) => (
-            <option key={el.listName} value={el.listName}>
-              {el.listName}
+          .filter((item) => item.listName !== editableTask?.status)
+          .map((el, index) => (
+            <option key={index} value={el.status}>
+              {el.status}
             </option>
           ))}
       </select>
