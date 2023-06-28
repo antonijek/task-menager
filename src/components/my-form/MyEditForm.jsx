@@ -3,13 +3,15 @@ import MyInput from "../my-input/MyInput";
 import classes from "./my-form.module.scss";
 import style from "../../components/my-input/my-input.module.scss";
 import { allTasks } from "../../my-constants/myTasks";
+import { statuses } from "../../my-constants/statuses";
 
-const MyForm = ({
+const MyEditForm = ({
   taskIndex,
   editableTask,
   setEditableTask,
   tasks,
   setTasks,
+  setIsFormEditOpen,
 }) => {
   const editTask = (e) => {
     const { name, value } = e.target;
@@ -24,11 +26,12 @@ const MyForm = ({
       .concat(editableTask)
       .concat(tasks.slice(taskIndex + 1));
     setTasks(orderedTasks);
+    setIsFormEditOpen(false);
   };
 
   return (
     <form action="" className={classes["my-form"]}>
-      <h2>Add new task</h2>
+      <h2 className={classes["title"]}>Edit task</h2>
 
       <MyInput
         label="Title"
@@ -37,12 +40,15 @@ const MyForm = ({
         name="title"
         onChange={(e) => editTask(e)}
       />
+      <label className={classes["label-description"]} htmlFor="">
+        Description
+      </label>
       <textarea
-        label="Description"
         className={style["my-input"]}
         value={editableTask?.description}
         name="description"
         onChange={editTask}
+        rows="4"
       />
       <select
         name="status"
@@ -50,20 +56,19 @@ const MyForm = ({
         className={classes["select"]}
         onChange={editTask}
       >
-        <option name="status" value={editableTask?.status}>
-          {editableTask?.status}
-        </option>
-        {tasks
-          .filter((item) => item.listName !== editableTask?.status)
-          .map((el, index) => (
-            <option key={index} value={el.status}>
-              {el.status}
-            </option>
-          ))}
+        <option value={editableTask?.status}>{editableTask?.status}</option>
+        {statuses.map((el, index) => (
+          <option key={index} value={el}>
+            {el}
+          </option>
+        ))}
       </select>
-      <button onClick={(e) => edit(e)}>Edit</button>
+
+      <button className={style["my-input"]} onClick={(e) => edit(e)}>
+        Edit
+      </button>
     </form>
   );
 };
 
-export default MyForm;
+export default MyEditForm;
