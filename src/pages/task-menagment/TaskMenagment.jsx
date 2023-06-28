@@ -6,7 +6,7 @@ import MyButton from "../../components/my-button/MyButton";
 import { statuses } from "../../my-constants/statuses";
 
 const TaskMenagment = ({ tasks, setTasks }) => {
-  const [selectedTabs, setSelectedTabs] = useState(tasks);
+  const [allTasksCopy, setAllTasksCopy] = useState(tasks);
   const [editableTask, setEditableTask] = useState();
   const [taskIndex, setTaskIndex] = useState();
   const [isFormEditOpen, setIsFormEditOpen] = useState(false);
@@ -25,10 +25,19 @@ const TaskMenagment = ({ tasks, setTasks }) => {
     setDeletedTasks([...deletedTasks, task]);
   };
 
-  const showDeletedTasks = () => [setTasks(deletedTasks)];
+  const showAllTasks = () => {
+    setTasks(allTasksCopy);
+  };
+
+  const showDeletedTasks = () => {
+    if (deletedTasks.length < 1) {
+      setDeletedTasks([{ title: "/", status: "/" }]);
+    }
+    setTasks(deletedTasks);
+  };
 
   const selectTabs = (e) => {
-    setTasks(selectedTabs.filter((item) => item.status === e));
+    setTasks(allTasksCopy.filter((item) => item.status === e));
   };
 
   return (
@@ -52,7 +61,7 @@ const TaskMenagment = ({ tasks, setTasks }) => {
       )}
 
       <div className={classes["buttons"]}>
-        <MyButton text="All tasks" onClick={(e) => selectTabs(e)} />
+        <MyButton text="All tasks" onClick={(e) => showAllTasks(e)} />
         {statuses.map((item) => (
           <MyButton key={item} text={item} onClick={() => selectTabs(item)} />
         ))}
@@ -77,19 +86,21 @@ const TaskMenagment = ({ tasks, setTasks }) => {
             <tr key={task?.title}>
               <td>{task?.title}</td>
               <td>{task?.status}</td>
-              <td>
-                <MyButton
-                  text="Edit"
-                  bgColor="blue"
-                  onClick={() => onEditTask(task)}
-                />
+              {task.status !== "/" ? (
+                <td>
+                  <MyButton
+                    text="Edit"
+                    bgColor="blue"
+                    onClick={() => onEditTask(task)}
+                  />
 
-                <MyButton
-                  text="Delete"
-                  bgColor="red"
-                  onClick={() => onDeleteTask(task)}
-                />
-              </td>
+                  <MyButton
+                    text="Delete"
+                    bgColor="red"
+                    onClick={() => onDeleteTask(task)}
+                  />
+                </td>
+              ) : null}
             </tr>
           ))}
         </tbody>
