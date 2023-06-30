@@ -4,6 +4,7 @@ import classes from "./task-managment.module.scss";
 import MyEditForm from "../../components/my-form/MyEditForm";
 import MyButton from "../../components/my-button/MyButton";
 import { statuses } from "../../my-constants/statuses";
+import Table from "../../components/table/Table";
 
 const TaskMenagment = ({ tasks, setTasks }) => {
   const [allTasksCopy, setAllTasksCopy] = useState(tasks);
@@ -24,6 +25,54 @@ const TaskMenagment = ({ tasks, setTasks }) => {
     setTasks(newTasks);
     setDeletedTasks([...deletedTasks, task]);
   };
+
+  let headers = [
+    { title: "Name", index: "title" },
+    { title: "Status", index: "status" },
+    {
+      title: "Actions",
+      index: null,
+      render: (data) => {
+        return (
+          <div className={classes["action-buttons"]}>
+            <MyButton
+              text={"Edit"}
+              onClick={() => onEditTask(data)}
+              bgColor="blue"
+            />
+            <MyButton
+              text={"Delete"}
+              onClick={() => onDeleteTask(data)}
+              bgColor="red"
+            />
+          </div>
+        );
+      },
+    },
+  ];
+
+  /*   const actionsHeader = [
+    {
+      title: "Actions",
+      index: null,
+      render: (data) => {
+        return (
+          <div className={classes["action-buttons"]}>
+            <MyButton
+              text={"Edit"}
+              onClick={() => onEditTask(data)}
+              bgColor="blue"
+            />
+            <MyButton
+              text={"Delete"}
+              onClick={() => onDeleteTask(data)}
+              bgColor="red"
+            />
+          </div>
+        );
+      },
+    },
+  ]; */
 
   const showAllTasks = () => {
     setTasks(allTasksCopy);
@@ -73,38 +122,8 @@ const TaskMenagment = ({ tasks, setTasks }) => {
           onClick={() => setIsFormNewOpen(true)}
         />
       </div>
-      <table className={classes["my-table"]}>
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Status</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {tasks.map((task) => (
-            <tr key={task?.title}>
-              <td>{task?.title}</td>
-              <td>{task?.status}</td>
-              {task.status !== "/" ? (
-                <td>
-                  <MyButton
-                    text="Edit"
-                    bgColor="blue"
-                    onClick={() => onEditTask(task)}
-                  />
 
-                  <MyButton
-                    text="Delete"
-                    bgColor="red"
-                    onClick={() => onDeleteTask(task)}
-                  />
-                </td>
-              ) : null}
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      <Table header={headers} data={tasks} />
     </div>
   );
 };

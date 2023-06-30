@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Home from "./pages/home/Home";
 import TaskMenagment from "./pages/task-menagment/TaskMenagment";
-import MyNavbar from "./components/myNavbar/MyNavbar";
+import MyNavbar from "./components/my-navbar/MyNavbar";
 import { allTasks } from "../src/my-constants/myTasks";
 import "./App.css";
 

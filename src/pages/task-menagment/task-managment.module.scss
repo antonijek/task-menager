@@ -42,3 +42,9 @@
   display: flex;
   justify-content: space-between;
 }
+.action-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+}
