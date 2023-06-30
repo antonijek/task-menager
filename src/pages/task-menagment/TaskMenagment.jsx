@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import NewTask from "../../components/new-task/NewTask";
 import classes from "./task-managment.module.scss";
 import Form from "../../components/form/Form";
@@ -14,12 +14,17 @@ const TaskMenagment = ({ tasks, setTasks }) => {
   const [isFormNewOpen, setIsFormNewOpen] = useState(false);
   const [deletedTasks, setDeletedTasks] = useState([]);
 
+  useEffect(() => {
+    setAllTasksCopy(tasks);
+  }, [tasks]);
+
   const onEditTask = (task) => {
     setEditableTask(task);
     setTaskIndex(tasks.indexOf(task));
     setIsFormEditOpen(true);
   };
   const onDeleteTask = (task) => {
+    console.log(tasks);
     let index = tasks.indexOf(task);
     let newTasks = tasks.slice(0, index).concat(tasks.slice(index + 1));
     setTasks(newTasks);
@@ -52,18 +57,18 @@ const TaskMenagment = ({ tasks, setTasks }) => {
   ];
 
   const showAllTasks = () => {
-    setTasks(allTasksCopy);
+    setAllTasksCopy(tasks);
   };
 
   const showDeletedTasks = () => {
     if (deletedTasks.length < 1) {
       setDeletedTasks([{ title: "/", status: "/" }]);
     }
-    setTasks(deletedTasks);
+    setAllTasksCopy(deletedTasks);
   };
 
   const selectTabs = (e) => {
-    setTasks(allTasksCopy.filter((item) => item.status === e));
+    setAllTasksCopy(tasks.filter((item) => item.status === e));
   };
 
   return (
@@ -100,7 +105,7 @@ const TaskMenagment = ({ tasks, setTasks }) => {
         />
       </div>
 
-      <Table header={headers} data={tasks} />
+      <Table header={headers} data={allTasksCopy} />
     </div>
   );
 };
