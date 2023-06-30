@@ -1,8 +1,8 @@
 import { useState } from "react";
 import Home from "./pages/home/Home";
 import TaskMenagment from "./pages/task-menagment/TaskMenagment";
-import MyNavbar from "./components/my-navbar/MyNavbar";
-import { allTasks } from "../src/my-constants/myTasks";
+import Navbar from "./components/navbar/Navbar";
+import { allTasks } from "./constants/myTasks";
 import "./App.css";
 
 function App() {
@@ -11,7 +11,7 @@ function App() {
 
   return (
     <div className="main-container">
-      <MyNavbar tab={tab} setTab={setTab} />
+      <Navbar tab={tab} setTab={setTab} />
       {tab === "home" ? (
         <Home tasks={tasks} setTasks={setTasks} />
       ) : (

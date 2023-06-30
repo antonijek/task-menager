@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import MyInput from "../my-input/MyInput";
-import classes from "./my-form.module.scss";
-import style from "../../components/my-input/my-input.module.scss";
-import { allTasks } from "../../my-constants/myTasks";
-import { statuses } from "../../my-constants/statuses";
+import MyInput from "../input/Input";
+import classes from "./form.module.scss";
+import style from "../input/input.module.scss";
+import { allTasks } from "../../constants/myTasks";
+import { statuses } from "../../constants/statuses";
 
-const MyEditForm = ({
+const Form = ({
   taskIndex,
   editableTask,
   setEditableTask,
@@ -71,4 +71,4 @@ const MyEditForm = ({
   );
 };
 
-export default MyEditForm;
+export default Form;

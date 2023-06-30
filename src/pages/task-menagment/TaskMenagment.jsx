@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import NewTask from "../../components/new-task/NewTask";
 import classes from "./task-managment.module.scss";
-import MyEditForm from "../../components/my-form/MyEditForm";
-import MyButton from "../../components/my-button/MyButton";
-import { statuses } from "../../my-constants/statuses";
+import Form from "../../components/form/Form";
+import Button from "../../components/button/Button";
+import { statuses } from "../../constants/statuses";
 import Table from "../../components/table/Table";
 
 const TaskMenagment = ({ tasks, setTasks }) => {
@@ -35,12 +35,12 @@ const TaskMenagment = ({ tasks, setTasks }) => {
       render: (data) => {
         return (
           <div className={classes["action-buttons"]}>
-            <MyButton
+            <Button
               text={"Edit"}
               onClick={() => onEditTask(data)}
               bgColor="blue"
             />
-            <MyButton
+            <Button
               text={"Delete"}
               onClick={() => onDeleteTask(data)}
               bgColor="red"
@@ -50,29 +50,6 @@ const TaskMenagment = ({ tasks, setTasks }) => {
       },
     },
   ];
-
-  /*   const actionsHeader = [
-    {
-      title: "Actions",
-      index: null,
-      render: (data) => {
-        return (
-          <div className={classes["action-buttons"]}>
-            <MyButton
-              text={"Edit"}
-              onClick={() => onEditTask(data)}
-              bgColor="blue"
-            />
-            <MyButton
-              text={"Delete"}
-              onClick={() => onDeleteTask(data)}
-              bgColor="red"
-            />
-          </div>
-        );
-      },
-    },
-  ]; */
 
   const showAllTasks = () => {
     setTasks(allTasksCopy);
@@ -92,7 +69,7 @@ const TaskMenagment = ({ tasks, setTasks }) => {
   return (
     <div>
       {isFormEditOpen && (
-        <MyEditForm
+        <Form
           taskIndex={taskIndex}
           tasks={tasks}
           setTasks={setTasks}
@@ -110,13 +87,13 @@ const TaskMenagment = ({ tasks, setTasks }) => {
       )}
 
       <div className={classes["buttons"]}>
-        <MyButton text="All tasks" onClick={(e) => showAllTasks(e)} />
+        <Button text="All tasks" onClick={(e) => showAllTasks(e)} />
         {statuses.map((item) => (
-          <MyButton key={item} text={item} onClick={() => selectTabs(item)} />
+          <Button key={item} text={item} onClick={() => selectTabs(item)} />
         ))}
 
-        <MyButton text="Deleted" onClick={() => showDeletedTasks()} />
-        <MyButton
+        <Button text="Deleted" onClick={() => showDeletedTasks()} />
+        <Button
           text=" Add new task"
           bgColor="blue"
           onClick={() => setIsFormNewOpen(true)}

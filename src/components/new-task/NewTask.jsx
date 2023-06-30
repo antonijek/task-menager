@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import classes from "../my-form/my-form.module.scss";
-import style from "../../components/my-input/my-input.module.scss";
-import MyInput from "../my-input/MyInput";
+import classes from "../form/form.module.scss";
+import style from "../input/input.module.scss";
+import Input from "../input/Input";
 
 const NewTask = ({ tasks, setTasks, setIsFormNewOpen }) => {
   const [newTask, setNewTask] = useState();
@@ -23,7 +23,7 @@ const NewTask = ({ tasks, setTasks, setIsFormNewOpen }) => {
     <form action="" className={classes["my-form"]}>
       <h2 className={classes["title"]}>Add new task</h2>
 
-      <MyInput
+      <Input
         label="Title"
         className={style["my-input"]}
         value={newTask?.title}

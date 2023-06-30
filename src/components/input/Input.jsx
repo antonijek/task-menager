@@ -1,6 +1,6 @@
 import React from "react";
 
-const MyInput = ({
+const Input = ({
   label = "",
   className = "",
   placeholder = "",
@@ -26,4 +26,4 @@ const MyInput = ({
   );
 };
 
-export default MyInput;
+export default Input;

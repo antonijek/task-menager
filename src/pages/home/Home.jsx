@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import classes from "./home.module.scss";
-import style from "../../components/my-input/my-input.module.scss";
+import style from "../../components/input/input.module.scss";
 import ColumnContainer from "../../components/column-container/ColumnContainer";
-import MyInput from "../../components/my-input/MyInput";
+import MyInput from "../../components/input/Input";
 
 const Home = ({ tasks, setTasks }) => {
   const [searchInput, setSearchInput] = useState();

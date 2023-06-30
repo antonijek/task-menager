@@ -1,7 +1,7 @@
 import React from "react";
-import classes from "./my-button.module.scss";
+import classes from "./button.module.scss";
 
-const MyButton = ({ text, bgColor = "green", onClick }) => {
+const Button = ({ text, bgColor = "green", onClick }) => {
   return (
     <button
       className={`${classes["my-button"]} ${classes[bgColor]}`}
@@ -12,4 +12,4 @@ const MyButton = ({ text, bgColor = "green", onClick }) => {
   );
 };
 
-export default MyButton;
+export default Button;
