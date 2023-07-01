@@ -1,35 +1,34 @@
+// Home.jsx
 import React, { useState } from "react";
 import classes from "./home.module.scss";
 import style from "../../components/input/input.module.scss";
 import ColumnContainer from "../../components/column-container/ColumnContainer";
-import MyInput from "../../components/input/Input";
+import Input from "../../components/input/Input";
 
-const Home = ({ tasks, setTasks }) => {
-  const [searchInput, setSearchInput] = useState();
-  const [copyTasks, setCopytasks] = useState(tasks);
+const Home = ({ tasks }) => {
+  const [filteredTasks, setFilteredTasks] = useState(tasks);
 
-  const searchTask = (arr, e) => {
-    setSearchInput(e.target.value);
+  const searchTask = (arr, value) => {
     let filteredArr = arr.filter((item) =>
-      item.title.toLowerCase().includes(e.target.value.toLowerCase())
+      item.title.toLowerCase().includes(value.toLowerCase())
     );
 
-    setCopytasks(filteredArr);
+    setFilteredTasks(filteredArr);
   };
-  let wishList = copyTasks.filter((item) => item.status === "Wish List");
-  let toDo = copyTasks.filter((item) => item.status === "To-Do List");
-  let inProgress = copyTasks.filter(
+
+  let wishList = filteredTasks.filter((item) => item.status === "Wish List");
+  let toDo = filteredTasks.filter((item) => item.status === "To-Do List");
+  let inProgress = filteredTasks.filter(
     (item) => item.status === "In-Progress List"
   );
-  let done = copyTasks.filter((item) => item.status === "Done List");
+  let done = filteredTasks.filter((item) => item.status === "Done List");
 
   return (
     <div>
-      <MyInput
+      <Input
         className={style["my-input"]}
         placeholder="Search"
-        onChange={(e) => searchTask(tasks, e)}
-        value={searchInput}
+        onChange={(value) => searchTask(tasks, value)}
       />
       <div className={classes["home"]}>
         <ColumnContainer list={wishList} columnTitle="Wish List" />

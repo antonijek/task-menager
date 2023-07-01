@@ -13,7 +13,7 @@ function App() {
     <div className="main-container">
       <Navbar tab={tab} setTab={setTab} />
       {tab === "home" ? (
-        <Home tasks={tasks} setTasks={setTasks} />
+        <Home tasks={tasks} />
       ) : (
         <TaskMenagment tasks={tasks} setTasks={setTasks} />
       )}
