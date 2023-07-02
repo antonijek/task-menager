@@ -1,9 +1,10 @@
 // Home.jsx
 import React, { useState } from "react";
 import classes from "./home.module.scss";
-import style from "../../components/input/input.module.scss";
+import style from "../../components/inputs/input.module.scss";
 import ColumnContainer from "../../components/column-container/ColumnContainer";
-import Input from "../../components/input/Input";
+import Input from "../../components/inputs/Input";
+import InputSearch from "../../components/inputs/InputSearch";
 
 const Home = ({ tasks }) => {
   const [filteredTasks, setFilteredTasks] = useState(tasks);
@@ -25,7 +26,7 @@ const Home = ({ tasks }) => {
 
   return (
     <div>
-      <Input
+      <InputSearch
         className={style["my-input"]}
         placeholder="Search"
         onChange={(value) => searchTask(tasks, value)}

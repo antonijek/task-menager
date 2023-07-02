@@ -1,74 +1,57 @@
-import React, { useEffect, useState } from "react";
-import MyInput from "../input/Input";
+import Input from "../inputs/Input";
 import classes from "./form.module.scss";
-import style from "../input/input.module.scss";
-import { allTasks } from "../../constants/myTasks";
+import style from "../inputs/input.module.scss";
 import { statuses } from "../../constants/statuses";
+import TextArea from "../inputs/TextArea";
+import Select from "../inputs/Select";
+import Button from "../button/Button";
 
-const Form = ({
-  taskIndex,
-  editableTask,
-  setEditableTask,
-  tasks,
-  setTasks,
-  setIsFormEditOpen,
-}) => {
-  const editTask = (e) => {
-    const { name, value } = e.target;
-    setEditableTask({ ...editableTask, [name]: value });
-  };
-
-  const edit = (e) => {
+const Test = ({ title, task, onChange, onClick, text, closeForm }) => {
+  const onClose = (e) => {
     e.preventDefault();
-
-    let orderedTasks = tasks
-      .slice(0, taskIndex)
-      .concat(editableTask)
-      .concat(tasks.slice(taskIndex + 1));
-    setTasks(orderedTasks);
-    setIsFormEditOpen(false);
+    closeForm(false);
   };
 
   return (
     <form action="" className={classes["my-form"]}>
-      <h2 className={classes["title"]}>Edit task</h2>
+      <button className={classes["close"]} onClick={(e) => onClose(e)}>
+        x
+      </button>
+      <h2 className={classes["title"]}>{title}</h2>
 
-      <MyInput
+      <Input
         label="Title"
         className={style["my-input"]}
-        value={editableTask?.title}
+        value={task?.title}
         name="title"
-        onChange={(e) => editTask(e)}
+        onChange={(e) => onChange(e)}
       />
       <label className={classes["label-description"]} htmlFor="">
         Description
       </label>
-      <textarea
+      <TextArea
         className={style["my-input"]}
-        value={editableTask?.description}
+        value={task?.description}
         name="description"
-        onChange={editTask}
+        onChange={(e) => onChange(e)}
         rows="4"
       />
-      <select
+      <Select
         name="status"
-        id=""
         className={classes["select"]}
-        onChange={editTask}
-      >
-        <option value={editableTask?.status}>{editableTask?.status}</option>
-        {statuses.map((el, index) => (
-          <option key={index} value={el}>
-            {el}
-          </option>
-        ))}
-      </select>
+        onChange={(e) => onChange(e)}
+        value={task?.status}
+        text={task?.status}
+        arr={statuses}
+      />
 
-      <button className={style["my-input"]} onClick={(e) => edit(e)}>
-        Edit
-      </button>
+      <Button
+        text={text}
+        className={style["my-input"]}
+        onClick={(e) => onClick(e)}
+      />
     </form>
   );
 };
 
-export default Form;
+export default Test;

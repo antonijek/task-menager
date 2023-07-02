@@ -1,4 +1,3 @@
-// Input.jsx
 import React from "react";
 
 const Input = ({
@@ -8,6 +7,7 @@ const Input = ({
   type = "text",
   onChange = () => {},
   name = "",
+  value = "",
 }) => {
   return (
     <div>
@@ -19,8 +19,9 @@ const Input = ({
         className={className}
         placeholder={placeholder}
         type={type}
+        value={value}
         onChange={(e) => {
-          onChange(e?.target?.value);
+          onChange(e);
         }}
       />
     </div>

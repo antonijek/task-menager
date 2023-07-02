@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import NewTask from "../../components/new-task/NewTask";
 import classes from "./task-managment.module.scss";
-import Form from "../../components/form/Form";
+import EditTask from "../../components/edit-task/EditTask";
 import Button from "../../components/button/Button";
 import { statuses } from "../../constants/statuses";
 import Table from "../../components/table/Table";
@@ -22,6 +22,7 @@ const TaskMenagment = ({ tasks, setTasks }) => {
     setEditableTask(task);
     setTaskIndex(tasks.indexOf(task));
     setIsFormEditOpen(true);
+    setIsFormNewOpen(false);
   };
   const onDeleteTask = (task) => {
     console.log(tasks);
@@ -71,10 +72,14 @@ const TaskMenagment = ({ tasks, setTasks }) => {
     setAllTasksCopy(tasks.filter((item) => item.status === e));
   };
 
+  const openFormForNewTask = () => {
+    setIsFormNewOpen(true);
+    setIsFormEditOpen(false);
+  };
   return (
     <div>
       {isFormEditOpen && (
-        <Form
+        <EditTask
           taskIndex={taskIndex}
           tasks={tasks}
           setTasks={setTasks}
@@ -101,7 +106,7 @@ const TaskMenagment = ({ tasks, setTasks }) => {
         <Button
           text=" Add new task"
           bgColor="blue"
-          onClick={() => setIsFormNewOpen(true)}
+          onClick={openFormForNewTask}
         />
       </div>
 
