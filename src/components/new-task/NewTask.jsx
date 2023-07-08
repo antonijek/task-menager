@@ -9,8 +9,8 @@ const NewTask = ({ tasks, setTasks, setIsFormNewOpen }) => {
     setNewTask({ ...newTask, [name]: value });
   };
 
-  const addNewTask = (e) => {
-    setTasks([...tasks, newTask]);
+  const addNewTask = () => {
+    setTasks({ type: "add-task", data: newTask });
     setIsFormNewOpen(false);
   };
 

@@ -25,10 +25,7 @@ const TaskMenagment = ({ tasks, setTasks }) => {
     setIsFormNewOpen(false);
   };
   const onDeleteTask = (task) => {
-    console.log(tasks);
-    let index = tasks.indexOf(task);
-    let newTasks = tasks.slice(0, index).concat(tasks.slice(index + 1));
-    setTasks(newTasks);
+    setTasks({ type: "delete-task", data: task });
     setDeletedTasks([...deletedTasks, task]);
   };
 

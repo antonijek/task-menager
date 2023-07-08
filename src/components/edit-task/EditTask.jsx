@@ -14,12 +14,8 @@ const EditTask = ({
     setEditableTask({ ...editableTask, [name]: value });
   };
 
-  const edit = (e) => {
-    let orderedTasks = tasks
-      .slice(0, taskIndex)
-      .concat(editableTask)
-      .concat(tasks.slice(taskIndex + 1));
-    setTasks(orderedTasks);
+  const edit = () => {
+    setTasks({ type: "edit-task", index: taskIndex, data: editableTask });
     setIsFormEditOpen(false);
   };
 
