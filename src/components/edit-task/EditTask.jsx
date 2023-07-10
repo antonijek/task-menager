@@ -18,6 +18,7 @@ const EditTask = ({
     setTasks({ type: "edit-task", index: taskIndex, data: editableTask });
     setIsFormEditOpen(false);
   };
+  console.log(tasks);
 
   return (
     <div>

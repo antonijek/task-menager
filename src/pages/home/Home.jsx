@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import classes from "./home.module.scss";
 import style from "../../components/inputs/input.module.scss";
 import ColumnContainer from "../../components/column-container/ColumnContainer";
-import Input from "../../components/inputs/Input";
 import InputSearch from "../../components/inputs/InputSearch";
 
 const Home = ({ tasks }) => {
