@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import useDebounce from "../../hooks/useDebounce";
 
 const InputSearch = ({
   label = "",
@@ -8,6 +9,13 @@ const InputSearch = ({
   onChange = () => {},
   name = "",
 }) => {
+  const [searchValue, setSearchValue] = useState("");
+  const debouncedSearchValue = useDebounce(searchValue, 500);
+
+  useEffect(() => {
+    onChange(debouncedSearchValue);
+  }, [debouncedSearchValue]);
+
   return (
     <div>
       <div>
@@ -18,9 +26,8 @@ const InputSearch = ({
         className={className}
         placeholder={placeholder}
         type={type}
-        onChange={(e) => {
-          onChange(e?.target?.value);
-        }}
+        value={searchValue}
+        onChange={(e) => setSearchValue(e.target.value)}
       />
     </div>
   );

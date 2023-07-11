@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import NewTask from "../../components/new-task/NewTask";
 import classes from "./task-managment.module.scss";
 import EditTask from "../../components/edit-task/EditTask";
-import Button from "../../components/button/Button";
-import { statuses } from "../../constants/statuses";
 import Table from "../../components/table/Table";
+import TaskProvider from "../../context/TaskContext";
+import Buttons from "../../components/buttons/Buttons";
+import Button from "../../components/button/Button";
 
 const TaskMenagment = ({ tasks, setTasks }) => {
   const [allTasksCopy, setAllTasksCopy] = useState(tasks);
@@ -13,21 +14,6 @@ const TaskMenagment = ({ tasks, setTasks }) => {
   const [isFormEditOpen, setIsFormEditOpen] = useState(false);
   const [isFormNewOpen, setIsFormNewOpen] = useState(false);
   const [deletedTasks, setDeletedTasks] = useState([]);
-
-  useEffect(() => {
-    setAllTasksCopy(tasks);
-  }, [tasks]);
-
-  const onEditTask = (task) => {
-    setEditableTask(task);
-    setTaskIndex(tasks.indexOf(task));
-    setIsFormEditOpen(true);
-    setIsFormNewOpen(false);
-  };
-  const onDeleteTask = (task) => {
-    setTasks({ type: "delete-task", data: task });
-    setDeletedTasks([...deletedTasks, task]);
-  };
 
   let headers = [
     { title: "Name", index: "title" },
@@ -54,60 +40,41 @@ const TaskMenagment = ({ tasks, setTasks }) => {
     },
   ];
 
-  const showAllTasks = () => {
-    setAllTasksCopy(tasks);
+  const providedData = {
+    allTasksCopy,
+    setAllTasksCopy,
+    taskIndex,
+    tasks,
+    setTasks,
+    editableTask,
+    setEditableTask,
+    setIsFormEditOpen,
+    setIsFormNewOpen,
+    deletedTasks,
+    setDeletedTasks,
+    header: headers,
+    data: allTasksCopy,
   };
 
-  const showDeletedTasks = () => {
-    if (deletedTasks.length < 1) {
-      setDeletedTasks([{ title: "/", status: "/" }]);
-    }
-    setAllTasksCopy(deletedTasks);
+  const onEditTask = (task) => {
+    setEditableTask(task);
+    setTaskIndex(tasks.indexOf(task));
+    setIsFormEditOpen(true);
+    setIsFormNewOpen(false);
+  };
+  const onDeleteTask = (task) => {
+    setTasks({ type: "delete-task", data: task });
+    setDeletedTasks([...deletedTasks, task]);
   };
 
-  const selectTabs = (e) => {
-    setAllTasksCopy(tasks.filter((item) => item.status === e));
-  };
-
-  const openFormForNewTask = () => {
-    setIsFormNewOpen(true);
-    setIsFormEditOpen(false);
-  };
   return (
     <div>
-      {isFormEditOpen && (
-        <EditTask
-          taskIndex={taskIndex}
-          tasks={tasks}
-          setTasks={setTasks}
-          editableTask={editableTask}
-          setEditableTask={setEditableTask}
-          setIsFormEditOpen={setIsFormEditOpen}
-        />
-      )}
-      {isFormNewOpen && (
-        <NewTask
-          tasks={tasks}
-          setTasks={setTasks}
-          setIsFormNewOpen={setIsFormNewOpen}
-        />
-      )}
-
-      <div className={classes["buttons"]}>
-        <Button text="All tasks" onClick={(e) => showAllTasks(e)} />
-        {statuses.map((item) => (
-          <Button key={item} text={item} onClick={() => selectTabs(item)} />
-        ))}
-
-        <Button text="Deleted" onClick={() => showDeletedTasks()} />
-        <Button
-          text=" Add new task"
-          bgColor="blue"
-          onClick={openFormForNewTask}
-        />
-      </div>
-
-      <Table header={headers} data={allTasksCopy} />
+      <TaskProvider data={providedData}>
+        {isFormEditOpen && <EditTask />}
+        {isFormNewOpen && <NewTask />}
+        <Buttons />
+        <Table />
+      </TaskProvider>
     </div>
   );
 };

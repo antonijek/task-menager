@@ -1,7 +1,9 @@
 import React from "react";
 import classes from "./table.module.scss";
+import { useTaskData } from "../../context/TaskContext";
 
-const Table = ({ header, data }) => {
+const Table = () => {
+  const { header, data } = useTaskData();
   return (
     <table className={classes["table"]}>
       <thead>

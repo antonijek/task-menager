@@ -1,4 +1,3 @@
-// Home.jsx
 import React, { useState } from "react";
 import classes from "./home.module.scss";
 import style from "../../components/inputs/input.module.scss";
@@ -27,7 +26,7 @@ const Home = ({ tasks }) => {
     <div>
       <InputSearch
         className={style["my-input"]}
-        placeholder="Search"
+        placeholder="Search..."
         onChange={(value) => searchTask(tasks, value)}
       />
       <div className={classes["home"]}>

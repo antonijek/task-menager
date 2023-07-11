@@ -1,14 +1,15 @@
-import React, { useEffect, useState } from "react";
+import { useTaskData } from "../../context/TaskContext";
 import Form from "../form/Form";
 
-const EditTask = ({
-  taskIndex,
-  editableTask,
-  setEditableTask,
-  tasks,
-  setTasks,
-  setIsFormEditOpen,
-}) => {
+const EditTask = () => {
+  const {
+    taskIndex,
+    editableTask,
+    setEditableTask,
+    setTasks,
+    setIsFormEditOpen,
+  } = useTaskData();
+
   const editTask = (e) => {
     const { name, value } = e.target;
     setEditableTask({ ...editableTask, [name]: value });
@@ -18,7 +19,6 @@ const EditTask = ({
     setTasks({ type: "edit-task", index: taskIndex, data: editableTask });
     setIsFormEditOpen(false);
   };
-  console.log(tasks);
 
   return (
     <div>

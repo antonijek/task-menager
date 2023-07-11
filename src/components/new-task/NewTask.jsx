@@ -1,7 +1,9 @@
 import React, { useState } from "react";
+import { useTaskData } from "../../context/TaskContext";
 import Form from "../form/Form";
 
-const NewTask = ({ tasks, setTasks, setIsFormNewOpen }) => {
+const NewTask = () => {
+  const { setTasks, setIsFormNewOpen } = useTaskData();
   const [newTask, setNewTask] = useState();
 
   const onChangeTask = (e) => {
