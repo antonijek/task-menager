@@ -19,3 +19,14 @@
   font-size: 3vw;
   margin: 0;
 }
+.active {
+  border-bottom: 3px solid rgb(178, 223, 14);
+  padding-bottom: 5px;
+}
+
+.pending {
+  color: rgba(56, 133, 89, 0.668);
+  margin-left: 10px;
+  margin-right: 10px;
+  text-decoration: none;
+}

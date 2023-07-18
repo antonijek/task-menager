@@ -6,6 +6,7 @@ import Table from "../../components/table/Table";
 import TaskProvider from "../../context/TaskContext";
 import Buttons from "../../components/buttons/Buttons";
 import Button from "../../components/button/Button";
+import wrapperHOC from "../wrapperHOC/wraperHOC";
 
 const TaskMenagment = ({ tasks, setTasks }) => {
   const [allTasksCopy, setAllTasksCopy] = useState(tasks);
@@ -79,4 +80,4 @@ const TaskMenagment = ({ tasks, setTasks }) => {
   );
 };
 
-export default TaskMenagment;
+export default wrapperHOC(TaskMenagment);

@@ -1,7 +1,7 @@
 import { useReducer, useState } from "react";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Home from "./pages/home/Home";
 import TaskMenagment from "./pages/task-menagment/TaskMenagment";
-import Navbar from "./components/navbar/Navbar";
 import { allTasks } from "./constants/myTasks";
 import "./App.css";
 
@@ -31,16 +31,18 @@ function App() {
   const [tab, setTab] = useState("home");
   const [tasks, dispatch] = useReducer(tasksReducer, allTasks);
 
-  return (
-    <div className="main-container">
-      <Navbar tab={tab} setTab={setTab} />
-      {tab === "home" ? (
-        <Home tasks={tasks} />
-      ) : (
-        <TaskMenagment tasks={tasks} setTasks={dispatch} />
-      )}
-    </div>
-  );
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: <Home tasks={tasks} />,
+    },
+    {
+      path: "/task-menagment",
+      element: <TaskMenagment tasks={tasks} setTasks={dispatch} />,
+    },
+  ]);
+
+  return <RouterProvider router={router} />;
 }
 
 export default App;

@@ -3,6 +3,7 @@ import classes from "./home.module.scss";
 import style from "../../components/inputs/input.module.scss";
 import ColumnContainer from "../../components/column-container/ColumnContainer";
 import InputSearch from "../../components/inputs/InputSearch";
+import wrapperHOC from "../wrapperHOC/wraperHOC";
 
 const Home = ({ tasks }) => {
   const [filteredTasks, setFilteredTasks] = useState(tasks);
@@ -39,4 +40,4 @@ const Home = ({ tasks }) => {
   );
 };
 
-export default Home;
+export default wrapperHOC(Home);
