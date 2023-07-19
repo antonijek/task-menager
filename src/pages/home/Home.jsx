@@ -5,6 +5,8 @@ import ColumnContainer from "../../components/column-container/ColumnContainer";
 import InputSearch from "../../components/inputs/InputSearch";
 import wrapperHOC from "../wrapperHOC/wraperHOC";
 
+import { Button, DatePicker, Space, version } from "antd";
+
 const Home = ({ tasks }) => {
   const [filteredTasks, setFilteredTasks] = useState(tasks);
 

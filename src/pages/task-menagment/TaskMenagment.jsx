@@ -2,10 +2,11 @@ import React, { useEffect, useState, useContext } from "react";
 import NewTask from "../../components/new-task/NewTask";
 import classes from "./task-managment.module.scss";
 import EditTask from "../../components/edit-task/EditTask";
-import Table from "../../components/table/Table";
+//import Table from "../../components/table/Table";
 import TaskProvider from "../../context/TaskContext";
 import Buttons from "../../components/buttons/Buttons";
-import Button from "../../components/button/Button";
+//import Button from "../../components/button/Button";
+import { Button, Table } from "antd";
 import wrapperHOC from "../wrapperHOC/wraperHOC";
 
 const TaskMenagment = ({ tasks, setTasks }) => {
@@ -17,24 +18,25 @@ const TaskMenagment = ({ tasks, setTasks }) => {
   const [deletedTasks, setDeletedTasks] = useState([]);
 
   let headers = [
-    { title: "Name", index: "title" },
-    { title: "Status", index: "status" },
+    { title: "Name", dataIndex: "title" },
+    { title: "Status", dataIndex: "status" },
     {
       title: "Actions",
-      index: null,
+      dataIndex: null,
       render: (data) => {
         return (
           <div className={classes["action-buttons"]}>
             <Button
-              text={"Edit"}
+              type="primary"
+              className={classes["blue-button"]}
               onClick={() => onEditTask(data)}
-              bgColor="blue"
-            />
-            <Button
-              text={"Delete"}
-              onClick={() => onDeleteTask(data)}
-              bgColor="red"
-            />
+            >
+              Edit
+            </Button>
+
+            <Button type="primary" danger onClick={() => onDeleteTask(data)}>
+              Delete
+            </Button>
           </div>
         );
       },
@@ -74,7 +76,7 @@ const TaskMenagment = ({ tasks, setTasks }) => {
         {isFormEditOpen && <EditTask />}
         {isFormNewOpen && <NewTask />}
         <Buttons />
-        <Table />
+        <Table columns={headers} dataSource={allTasksCopy} />
       </TaskProvider>
     </div>
   );

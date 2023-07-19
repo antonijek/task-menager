@@ -2,7 +2,8 @@ import React, { useEffect } from "react";
 
 import { useTaskData } from "../../context/TaskContext";
 import classes from "../../pages/task-menagment/task-managment.module.scss";
-import Button from "../../components/button/Button";
+//import Button from "../../components/button/Button";
+import { Button } from "antd";
 import { statuses } from "../../constants/statuses";
 
 const Buttons = () => {
@@ -41,17 +42,38 @@ const Buttons = () => {
 
   return (
     <div className={classes["buttons"]}>
-      <Button text="All tasks" onClick={(e) => showAllTasks(e)} />
+      <Button
+        type="primary"
+        className={classes["green-button"]}
+        onClick={(e) => showAllTasks(e)}
+      >
+        All tasks
+      </Button>
       {statuses.map((item) => (
-        <Button key={item} text={item} onClick={() => selectTabs(item)} />
+        <Button
+          type="primary"
+          className={classes["green-button"]}
+          key={item}
+          onClick={() => selectTabs(item)}
+        >
+          {item}
+        </Button>
       ))}
 
-      <Button text="Deleted" onClick={() => showDeletedTasks()} />
       <Button
-        text=" Add new task"
-        bgColor="blue"
+        type="primary"
+        className={classes["green-button"]}
+        onClick={() => showDeletedTasks()}
+      >
+        Deleted
+      </Button>
+      <Button
+        type="primary"
+        className={classes["blue-button"]}
         onClick={openFormForNewTask}
-      />
+      >
+        Add new task
+      </Button>
     </div>
   );
 };
