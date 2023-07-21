@@ -74,6 +74,6 @@ export const allTasks = [
     key: "task-11",
     title: "Deliver presentation",
     description: "Present the findings and recommendations to the stakeholders",
-    status: "Done Lis",
+    status: "Done List",
   },
 ];
