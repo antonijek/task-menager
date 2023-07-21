@@ -3,12 +3,12 @@ import { useTaskData } from "../../context/TaskContext";
 import Form from "../form/Form";
 
 const NewTask = () => {
-  const { setTasks, setIsFormNewOpen } = useTaskData();
+  const { tasks, setTasks, setIsFormNewOpen } = useTaskData();
   const [newTask, setNewTask] = useState();
 
   const onChangeTask = (e) => {
     const { name, value } = e.target;
-    setNewTask({ ...newTask, [name]: value });
+    setNewTask({ ...newTask, key: `task-${tasks.length}`, [name]: value });
   };
 
   const addNewTask = () => {
