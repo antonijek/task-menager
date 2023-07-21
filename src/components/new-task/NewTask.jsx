@@ -15,7 +15,7 @@ const NewTask = () => {
     setTasks({ type: "add-task", data: newTask });
     setIsFormNewOpen(false);
   };
-
+  console.log(newTask);
   return (
     <Form
       closeForm={setIsFormNewOpen}
