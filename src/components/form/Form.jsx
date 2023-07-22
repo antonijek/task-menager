@@ -1,4 +1,5 @@
 //import Input from "../inputs/Input";
+import { useState, useEffect } from "react";
 import classes from "./form.module.scss";
 import style from "../inputs/input.module.scss";
 import { statuses } from "../../constants/statuses";
@@ -8,11 +9,25 @@ import Select from "../inputs/Select";
 import { Input, Button } from "antd";
 const { TextArea } = Input;
 import Label from "../Label";
+import { useParams, useNavigate } from "react-router-dom";
 
-const Test = ({ title, task, onChange, onClick, text, closeForm }) => {
-  const onClose = (e) => {
-    e.preventDefault();
-    closeForm(false);
+const Form = ({
+  title,
+  text,
+  onChange,
+  onClick,
+  selectedTask,
+  setTaskId = () => {},
+}) => {
+  const navigate = useNavigate();
+  const { taskId } = useParams();
+
+  useEffect(() => {
+    setTaskId(taskId);
+  }, [taskId]);
+
+  const onClose = () => {
+    navigate("/task-menagment");
   };
 
   return (
@@ -24,14 +39,14 @@ const Test = ({ title, task, onChange, onClick, text, closeForm }) => {
       <Label title="Title" />
       <Input
         className={style["my-input"]}
-        value={task?.title}
+        value={selectedTask?.title}
         name="title"
         onChange={(e) => onChange(e)}
       />
       <Label title="Description" />
       <TextArea
         className={style["my-input"]}
-        value={task?.description}
+        value={selectedTask?.description}
         name="description"
         onChange={(e) => onChange(e)}
         rows="4"
@@ -40,16 +55,22 @@ const Test = ({ title, task, onChange, onClick, text, closeForm }) => {
         name="status"
         className={classes["select"]}
         onChange={(e) => onChange(e)}
-        value={task?.status}
-        text={task?.status}
+        value={selectedTask?.status}
+        text={selectedTask?.status}
         arr={statuses}
       />
 
-      <Button className={style["my-input"]} onClick={(e) => onClick(e)}>
+      <Button
+        className={style["my-input"]}
+        onClick={(e) => {
+          onClick(e);
+          navigate("/task-menagment");
+        }}
+      >
         {text}
       </Button>
     </form>
   );
 };
 
-export default Test;
+export default Form;

@@ -1,21 +1,22 @@
 import React, { useEffect, useState, useContext } from "react";
-import NewTask from "../../components/new-task/NewTask";
 import classes from "./task-managment.module.scss";
-import EditTask from "../../components/edit-task/EditTask";
 //import Table from "../../components/table/Table";
 import TaskProvider from "../../context/TaskContext";
 import Buttons from "../../components/buttons/Buttons";
 //import Button from "../../components/button/Button";
 import { Button, Table } from "antd";
 import wrapperHOC from "../wrapperHOC/wraperHOC";
+import { useNavigate } from "react-router-dom";
 
 const TaskMenagment = ({ tasks, setTasks }) => {
   const [allTasksCopy, setAllTasksCopy] = useState(tasks);
   const [editableTask, setEditableTask] = useState();
   const [taskIndex, setTaskIndex] = useState();
-  const [isFormEditOpen, setIsFormEditOpen] = useState(false);
+
   const [isFormNewOpen, setIsFormNewOpen] = useState(false);
   const [deletedTasks, setDeletedTasks] = useState([]);
+
+  const navigate = useNavigate();
 
   let headers = [
     { title: "Name", dataIndex: "title" },
@@ -51,7 +52,6 @@ const TaskMenagment = ({ tasks, setTasks }) => {
     setTasks,
     editableTask,
     setEditableTask,
-    setIsFormEditOpen,
     setIsFormNewOpen,
     deletedTasks,
     setDeletedTasks,
@@ -60,10 +60,7 @@ const TaskMenagment = ({ tasks, setTasks }) => {
   };
 
   const onEditTask = (task) => {
-    setEditableTask(task);
-    setTaskIndex(tasks.indexOf(task));
-    setIsFormEditOpen(true);
-    setIsFormNewOpen(false);
+    navigate(`/task-menagment/${task.key}`);
   };
   const onDeleteTask = (task) => {
     setTasks({ type: "delete-task", data: task });
@@ -73,8 +70,6 @@ const TaskMenagment = ({ tasks, setTasks }) => {
   return (
     <div>
       <TaskProvider data={providedData}>
-        {isFormEditOpen && <EditTask />}
-        {isFormNewOpen && <NewTask />}
         <Buttons />
         <Table columns={headers} dataSource={allTasksCopy} />
       </TaskProvider>

@@ -5,25 +5,16 @@ import classes from "../../pages/task-menagment/task-managment.module.scss";
 //import Button from "../../components/button/Button";
 import { Button } from "antd";
 import { statuses } from "../../constants/statuses";
+import { useNavigate } from "react-router-dom";
 
 const Buttons = () => {
-  const {
-    setAllTasksCopy,
-    tasks,
-    setIsFormEditOpen,
-    setIsFormNewOpen,
-    deletedTasks,
-    setDeletedTasks,
-  } = useTaskData();
+  const { setAllTasksCopy, tasks, deletedTasks, setDeletedTasks } =
+    useTaskData();
+  const navigate = useNavigate();
 
   useEffect(() => {
     setAllTasksCopy(tasks);
   }, [tasks]);
-
-  const openFormForNewTask = () => {
-    setIsFormNewOpen(true);
-    setIsFormEditOpen(false);
-  };
 
   const showAllTasks = () => {
     setAllTasksCopy(tasks);
@@ -70,7 +61,7 @@ const Buttons = () => {
       <Button
         type="primary"
         className={classes["blue-button"]}
-        onClick={openFormForNewTask}
+        onClick={() => navigate("/new-task")}
       >
         Add new task
       </Button>
