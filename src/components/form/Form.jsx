@@ -1,5 +1,5 @@
 //import Input from "../inputs/Input";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import classes from "./form.module.scss";
 import style from "../inputs/input.module.scss";
 import { statuses } from "../../constants/statuses";
