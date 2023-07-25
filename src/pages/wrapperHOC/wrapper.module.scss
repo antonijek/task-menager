@@ -19,9 +19,14 @@
   font-size: 3vw;
   margin: 0;
 }
+.avatar-name {
+  color: rgba(225, 121, 9, 0.668);
+  margin: 0;
+}
+
 .active {
-  border-bottom: 3px solid rgb(178, 223, 14);
-  padding-bottom: 5px;
+  border-bottom: 3px solid rgba(225, 121, 9, 0.668);
+  padding-bottom: 0px;
 }
 
 .pending {
@@ -29,4 +34,20 @@
   margin-left: 10px;
   margin-right: 10px;
   text-decoration: none;
+  margin-top: 0;
+}
+.pending:hover {
+  color: rgba(225, 121, 9, 0.668);
+}
+
+.tabs {
+  display: flex;
+}
+.logout {
+  color: rgba(56, 133, 89, 0.668);
+  margin: 0 10px;
+  cursor: pointer;
+}
+.logout:hover {
+  color: rgba(225, 121, 9, 0.668);
 }

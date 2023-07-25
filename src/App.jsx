@@ -6,6 +6,8 @@ import { allTasks } from "./constants/myTasks";
 import "./App.css";
 import ModalProvider from "./context/ModalContext";
 import Form from "./components/form/Form";
+import Login from "./pages/login/Login";
+import UserProvider from "./context/UserContext";
 
 const tasksReducer = (state, action) => {
   switch (action.type) {
@@ -67,6 +69,11 @@ function App() {
       element: <Home tasks={tasks} />,
     },
     {
+      path: "/login",
+      element: <Login />,
+    },
+
+    {
       path: "/task-menagment",
       element: <TaskMenagment tasks={tasks} setTasks={dispatch} />,
     },
@@ -99,9 +106,11 @@ function App() {
   ]);
 
   return (
-    <ModalProvider>
-      <RouterProvider router={router} />
-    </ModalProvider>
+    <UserProvider>
+      <ModalProvider>
+        <RouterProvider router={router} />
+      </ModalProvider>{" "}
+    </UserProvider>
   );
 }
 

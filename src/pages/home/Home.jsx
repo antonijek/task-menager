@@ -4,6 +4,7 @@ import style from "../../components/inputs/input.module.scss";
 import ColumnContainer from "../../components/column-container/ColumnContainer";
 import InputSearch from "../../components/inputs/InputSearch";
 import wrapperHOC from "../wrapperHOC/wraperHOC";
+import AuthHoc from "../authHOC/AuthHoc";
 
 import { Button, DatePicker, Space, version } from "antd";
 
@@ -42,4 +43,4 @@ const Home = ({ tasks }) => {
   );
 };
 
-export default wrapperHOC(Home);
+export default AuthHoc(wrapperHOC(Home));

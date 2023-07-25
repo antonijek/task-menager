@@ -7,6 +7,7 @@ import Buttons from "../../components/buttons/Buttons";
 import { Button, Table } from "antd";
 import wrapperHOC from "../wrapperHOC/wraperHOC";
 import { useNavigate } from "react-router-dom";
+import AuthHoc from "../authHOC/AuthHoc";
 
 const TaskMenagment = ({ tasks, setTasks }) => {
   const [allTasksCopy, setAllTasksCopy] = useState(tasks);
@@ -77,4 +78,4 @@ const TaskMenagment = ({ tasks, setTasks }) => {
   );
 };
 
-export default wrapperHOC(TaskMenagment);
+export default AuthHoc(wrapperHOC(TaskMenagment));
