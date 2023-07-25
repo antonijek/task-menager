@@ -27,26 +27,19 @@ const UserProvider = ({ children }) => {
   }, []);
 
   const login = (email, password) => {
-    console.log(email, password);
     const currentUser = users.find((user) => user.email === email);
     let success = false;
-
     if (currentUser) {
-      console.log("User found");
       if (currentUser.password === password) {
-        console.log("Credentials ok");
         setUser(currentUser);
         localStorage.setItem("currentUserId", JSON.stringify(currentUser.id));
         success = true;
       } else {
-        console.log("credentials false");
         setUser(null);
       }
     } else {
-      console.log("User does not exist");
       setUser(null);
     }
-
     return success;
   };
 
