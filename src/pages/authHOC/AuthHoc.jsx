@@ -6,7 +6,7 @@ const AuthHoc = (Component) => {
   return (props) => {
     const { user } = userData();
 
-    return user?.id ? (
+    return user ? (
       <Component {...props} />
     ) : (
       <Navigate to="/login" replace={true} />

@@ -18,11 +18,13 @@ const users = [
 const UserContext = createContext();
 
 const UserProvider = ({ children }) => {
-  const [user, setUser] = useState(
-    JSON.parse(localStorage.getItem("currentUser"))
-  );
+  let id = JSON.parse(localStorage.getItem("currentUserId"));
+  const [user, setUser] = useState(id);
 
-  console.log(user);
+  useEffect(() => {
+    let currentUser = users.find((item) => item.id === id);
+    setUser(currentUser);
+  }, []);
 
   const login = (email, password) => {
     console.log(email, password);
@@ -34,7 +36,7 @@ const UserProvider = ({ children }) => {
       if (currentUser.password === password) {
         console.log("Credentials ok");
         setUser(currentUser);
-        localStorage.setItem("currentUser", JSON.stringify(currentUser));
+        localStorage.setItem("currentUserId", JSON.stringify(currentUser.id));
         success = true;
       } else {
         console.log("credentials false");
@@ -50,7 +52,7 @@ const UserProvider = ({ children }) => {
 
   const logout = () => {
     setUser(null);
-    localStorage.removeItem("currentUser");
+    localStorage.removeItem("currentUserId");
   };
 
   return (
