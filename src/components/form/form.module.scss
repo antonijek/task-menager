@@ -4,8 +4,8 @@
   margin-left: auto;
   margin-right: auto;
   position: relative;
-  margin-top: 10%;
 
+  padding: 10%;
   .my-form input {
     display: inline-block;
   }
@@ -51,4 +51,12 @@
   &:hover {
     color: rgb(32, 105, 189);
   }
+}
+.btn-submit {
+  margin-top: 5%;
+}
+.login-title {
+  display: flex;
+  justify-content: center;
+  color: rgba(56, 133, 89, 0.668);
 }

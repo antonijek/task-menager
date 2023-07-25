@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [formData, setFormData] = useState();
-  const { login, logout, user } = userData();
+  const { login } = userData();
   const navigate = useNavigate();
 
   const onLogin = () => {
@@ -26,25 +26,29 @@ const Login = () => {
   };
 
   return (
-    <div className={style["my-form"]}>
-      <h2>Login</h2>
-      <Label title="Email" />
-      <Input
-        className={classes["my-input"]}
-        value={formData?.email}
-        name="email"
-        onChange={(e) => changeData(e)}
-      />
-      <Label title="Password" />
-      <Input
-        className={classes["my-input"]}
-        value={formData?.password}
-        name="password"
-        onChange={(e) => changeData(e)}
-      />
-      <Button className={classes["my-input"]} onClick={onLogin}>
-        Submit
-      </Button>
+    <div className={style["container"]}>
+      <div className={style["my-form"]}>
+        <h1 className={style["login-title"]}>Login</h1>
+        <Label title="Email" />
+        <Input
+          className={classes["my-input"]}
+          value={formData?.email}
+          name="email"
+          onChange={(e) => changeData(e)}
+        />
+        <Label title="Password" />
+        <Input
+          className={classes["my-input"]}
+          value={formData?.password}
+          name="password"
+          onChange={(e) => changeData(e)}
+        />
+        <div className={style["btn-submit"]}>
+          <Button className={classes["my-input"]} onClick={onLogin}>
+            Submit
+          </Button>
+        </div>
+      </div>
     </div>
   );
 };
