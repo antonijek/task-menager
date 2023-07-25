@@ -40,7 +40,8 @@
   left: 95%;
   top: 0%;
   display: inline;
-  color: var(--green);
+  color: white;
+  background-color: rgba(56, 133, 89, 0.668);
   font-weight: bold;
   font-size: 2vw;
   cursor: pointer;
@@ -49,4 +50,9 @@
   &:hover {
     color: rgb(32, 105, 189);
   }
+}
+.green-button {
+  background-color: rgba(56, 133, 89, 0.668);
+  color: white;
+  margin-top: 5%;
 }
