@@ -1,5 +1,6 @@
-// Input.jsx
 import React from "react";
+import { Input } from "antd";
+const { TextArea: AntdTextArea } = Input;
 
 const TextArea = ({
   label = "",
@@ -12,7 +13,8 @@ const TextArea = ({
   rows = "",
 }) => {
   return (
-    <div>
+    <AntdTextArea />
+    /*  <div>
       <div>
         <label htmlFor="">{label}</label>
       </div>
@@ -27,7 +29,7 @@ const TextArea = ({
           onChange(e);
         }}
       />
-    </div>
+    </div> */
   );
 };
 

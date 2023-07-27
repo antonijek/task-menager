@@ -1,4 +1,5 @@
 import React from "react";
+import { Input as AntdInput } from "antd";
 
 const Input = ({
   label = "",
@@ -10,7 +11,8 @@ const Input = ({
   value = "",
 }) => {
   return (
-    <div>
+    <AntdInput />
+    /*  <div>
       <div>
         <label htmlFor="">{label}</label>
       </div>
@@ -24,7 +26,7 @@ const Input = ({
           onChange(e);
         }}
       />
-    </div>
+    </div> */
   );
 };
 

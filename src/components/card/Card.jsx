@@ -1,12 +1,12 @@
 import React from "react";
 import classes from "./card.module.scss";
+import { Card as AntdCard } from "antd";
 
 const Card = ({ title = "", description = "" }) => {
   return (
-    <div className={classes["card"]}>
-      <h3>{title}</h3>
-      <p>{description}</p>
-    </div>
+    <AntdCard className={classes["card"]} title={title}>
+      {description}
+    </AntdCard>
   );
 };
 

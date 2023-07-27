@@ -1,12 +1,12 @@
-//import Input from "../inputs/Input";
+import Input from "../inputs/Input";
 import classes from "./form.module.scss";
 import style from "../inputs/input.module.scss";
 import { statuses } from "../../constants/statuses";
-//import TextArea from "../inputs/TextArea";
+import TextArea from "../inputs/TextArea";
 import Select from "../inputs/Select";
 import Button from "../button/Button";
-import { Input } from "antd";
-const { TextArea } = Input;
+//import { Input } from "antd";
+//const { TextArea } = Input;
 import Label from "../Label";
 
 const Test = ({ title, task, onChange, onClick, text, closeForm }) => {
