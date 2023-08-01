@@ -1,9 +1,7 @@
 import React, { useEffect } from "react";
-
 import { useTaskData } from "../../context/TaskContext";
 import classes from "../../pages/task-menagment/task-managment.module.scss";
-//import Button from "../../components/button/Button";
-import { Button } from "antd";
+import Button from "../../components/button/Button";
 import { statuses } from "../../constants/statuses";
 import { useNavigate } from "react-router-dom";
 
@@ -37,34 +35,32 @@ const Buttons = () => {
         type="primary"
         className={classes["green-button"]}
         onClick={(e) => showAllTasks(e)}
-      >
-        All tasks
-      </Button>
+        text="All tasks"
+      />
+
       {statuses.map((item) => (
         <Button
           type="primary"
           className={classes["green-button"]}
           key={item}
           onClick={() => selectTabs(item)}
-        >
-          {item}
-        </Button>
+          text={item}
+        />
       ))}
 
       <Button
         type="primary"
         className={classes["green-button"]}
         onClick={() => showDeletedTasks()}
-      >
-        Deleted
-      </Button>
+        text="Deleted"
+      />
+
       <Button
         type="primary"
         className={classes["blue-button"]}
-        onClick={() => navigate("/new-task")}
-      >
-        Add new task
-      </Button>
+        onClick={() => navigate("new-task")}
+        text="Add new task"
+      />
     </div>
   );
 };

@@ -1,17 +1,12 @@
 import React from "react";
 import classes from "./button.module.scss";
+import { Button as AntdButton } from "antd";
 
-const Button = ({ text, bgColor = "green", onClick }) => {
+const Button = ({ text, onClick, className }) => {
   return (
-    <button
-      className={`${classes["my-button"]} ${classes[bgColor]}`}
-      onClick={(e) => {
-        e.preventDefault();
-        onClick();
-      }}
-    >
+    <AntdButton className={className} type="primary" onClick={onClick}>
       {text}
-    </button>
+    </AntdButton>
   );
 };
 

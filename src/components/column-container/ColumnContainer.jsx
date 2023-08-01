@@ -1,7 +1,6 @@
 import React from "react";
 import classes from "./column-container.module.scss";
-//import Card from "../card/Card";
-import { Card, Space } from "antd";
+import Card from "../card/Card";
 
 const ColumnContainer = ({ list = [], columnTitle = "" }) => {
   return (
@@ -12,9 +11,7 @@ const ColumnContainer = ({ list = [], columnTitle = "" }) => {
       </h2>
 
       {list.map((task, index) => (
-        <Card key={index} title={task.title}>
-          {task.description}
-        </Card>
+        <Card key={index} title={task.title} description={task.description} />
       ))}
     </div>
   );
