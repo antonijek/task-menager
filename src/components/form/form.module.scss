@@ -1,10 +1,10 @@
 .my-form {
   display: block;
-  width: 50%;
+  width: 60%;
+  max-width: 800px;
   margin-left: auto;
   margin-right: auto;
   position: relative;
-
   padding: 10%;
   .my-form input {
     display: inline-block;
@@ -35,19 +35,18 @@
   color: var(--green);
   text-align: center;
   font-size: 3.5vw;
-  margin: 10% 20% 10% 0;
 }
 .close {
   position: absolute;
-  left: 75%;
-  top: -10%;
+  left: 80%;
+  top: 10%;
   display: inline;
   color: var(--green);
   font-weight: bold;
   font-size: 2vw;
   cursor: pointer;
-  border: 1px solid;
-  padding: 0px 10px;
+
+  padding: 0.3% 1%;
   &:hover {
     color: rgb(32, 105, 189);
   }

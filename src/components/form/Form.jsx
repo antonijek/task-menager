@@ -1,4 +1,4 @@
-//import Input from "../inputs/Input";
+/* //import Input from "../inputs/Input";
 import { useEffect } from "react";
 import classes from "./form.module.scss";
 import style from "../inputs/input.module.scss";
@@ -29,7 +29,7 @@ const Form = ({
   const onClose = () => {
     navigate("/task-menagment");
   };
-
+  console.log(selectedTask);
   return (
     <form action="" className={classes["my-form"]}>
       <Button className={classes["close"]} onClick={(e) => onClose(e)}>
@@ -73,80 +73,122 @@ const Form = ({
   );
 };
 
-export default Form;
+export default Form; */
 
-/* import React from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import InputWithController from "../inputs/InputWithController";
+import TextAreaWithController from "../inputs/TextAreaWithController";
+import { useParams, useNavigate } from "react-router-dom";
+import classes from "./form.module.scss";
+import style from "../inputs/input.module.scss";
+import { statuses } from "../../constants/statuses";
+import SubmitButton from "../button/SubmitButton";
+import SelectWithController from "../inputs/SelectWithController";
 
-const ValidationTestThree = () => {
+const Form = ({ data, setTaskId, setTasks, taskKey }) => {
   const schema = yup.object({
+    title: yup
+      .string()
+      .required("Field is required!")
+      .min(2, "Field cannot be less than 2 characters long!")
+      .max(20, "Field cannot be more than 20 characters long!"),
     description: yup
       .string()
       .required("Field is required!")
       .min(2, "Field cannot be less than 2 characters long!")
-      .max(3, "Field cannot be more than 3 characters long!")
-      .matches(/abc/, "Field invalid!"),
+      .max(100, "Field cannot be more than 100 characters long!"),
+    status: yup.string().required("Field is required!"),
   });
+
+  const { taskId } = useParams();
+  const navigate = useNavigate();
+  useEffect(() => {
+    setTaskId(taskId);
+  }, [taskId]);
 
   const {
-    reset,
     setValue,
-    register,
     handleSubmit,
     control,
-    watch,
     formState: { errors },
   } = useForm({
-    defaultValues: {
-      title: "Title",
-      description: "abc",
-    },
     resolver: yupResolver(schema),
+    defaultValues: {
+      key: data?.key,
+      title: data?.title || "",
+      description: data?.description,
+      status: data?.status,
+    },
   });
 
-  const onSubmit = (data) => console.log(data);
+  useEffect(() => {
+    if (data?.title) {
+      setValue("key", data.key);
+      setValue("title", data.title);
+      setValue("description", data.description);
+      setValue("status", data.status);
+    }
+  }, [data]);
 
-  const logErrors = () => console.log(errors);
+  const onClose = (e) => {
+    e.preventDefault();
+    navigate("/task-menagment");
+  };
+
+  const onSubmit = (data) => {
+    data.key
+      ? setTasks({ type: "edit-task", data: data })
+      : setTasks({
+          type: "add-task",
+          data: { ...data, key: `task-${taskKey}` },
+        });
+    navigate("/task-menagment");
+  };
 
   return (
-    <div
-      style={{ paddingTop: "100px", paddingLeft: "16px", paddingRight: "16px" }}
-    >
+    <div>
       <form
+        className={classes["my-form"]}
         onSubmit={handleSubmit(onSubmit)}
         style={{ display: "flex", flexDirection: "column", gap: "16px" }}
       >
+        <h2 className={classes["title"]}>
+          {data?.key ? "Edit task" : "Add task"}
+        </h2>
+
         <InputWithController
-          label="title"
+          className={style["my-input"]}
+          label="Title"
           name="title"
-          //placeholder="tit"
           control={control}
           error={errors?.title?.message}
         />
-        <InputWithController
-          label="des"
+        <TextAreaWithController
+          label="Description"
           name="description"
-          placeholder="des"
           control={control}
           error={errors?.description?.message}
+          className={style["my-input"]}
+        />
+        <SelectWithController
+          label="Select an option"
+          options={statuses}
+          name="status"
+          control={control}
+          error={errors?.status?.message}
+          className={style["my-input"]}
         />
 
-        <input {...register("description")} />
-        {errors?.description && <span>{errors?.description?.message}</span>}
-        <div>Value of second field is: {watch("description")}</div>
-        <button onClick={() => logErrors()}>Log errors</button>
-        <button onClick={() => setValue("title", "Example set!")}>
-          Set value of first field to "Example set!"
+        <SubmitButton label="Submit" className={style["my-input"]} />
+        <button className={classes["close"]} onClick={(e) => onClose(e)}>
+          x
         </button>
-        <button onClick={() => reset()}>Reset form to default values</button>
-        <button type="submit">Submit</button>
       </form>
     </div>
   );
 };
 
-export default ValidationTestThree;
- */
+export default Form;

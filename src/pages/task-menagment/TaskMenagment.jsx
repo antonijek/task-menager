@@ -1,10 +1,10 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import classes from "./task-managment.module.scss";
-//import Table from "../../components/table/Table";
+import Table from "../../components/table/Table";
 import TaskProvider from "../../context/TaskContext";
 import Buttons from "../../components/buttons/Buttons";
-//import Button from "../../components/button/Button";
-import { Button, Table } from "antd";
+import Button from "../../components/button/Button";
+//import { Button } from "antd";
 import wrapperHOC from "../wrapperHOC/wraperHOC";
 import { useNavigate } from "react-router-dom";
 import AuthHoc from "../authHOC/AuthHoc";
@@ -29,16 +29,16 @@ const TaskMenagment = ({ tasks, setTasks }) => {
         return (
           <div className={classes["action-buttons"]}>
             <Button
-              type="primary"
               className={classes["blue-button"]}
               onClick={() => onEditTask(data)}
-            >
-              Edit
-            </Button>
+              text="   Edit"
+            />
 
-            <Button type="primary" danger onClick={() => onDeleteTask(data)}>
-              Delete
-            </Button>
+            <Button
+              className={classes["red-button"]}
+              text="Delete"
+              onClick={() => onDeleteTask(data)}
+            />
           </div>
         );
       },

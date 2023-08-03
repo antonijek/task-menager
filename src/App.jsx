@@ -39,29 +39,10 @@ function App() {
   const [tasks, dispatch] = useReducer(tasksReducer, allTasks);
   const [taskId, setTaskId] = useState();
   const [selectedTask, setSelectedTask] = useState();
-  const [newTask, setNewTask] = useState();
 
   useEffect(() => {
     setSelectedTask(tasks.find((task) => task.key === taskId));
   }, [taskId]);
-
-  const editTask = (e) => {
-    const { name, value } = e.target;
-    setSelectedTask({ ...selectedTask, [name]: value });
-  };
-
-  const edit = () => {
-    dispatch({ type: "edit-task", data: selectedTask });
-  };
-
-  const onChangeTask = (e) => {
-    const { name, value } = e.target;
-    setNewTask({ ...newTask, key: `task-${tasks.length}`, [name]: value });
-  };
-
-  const addNewTask = () => {
-    dispatch({ type: "add-task", data: newTask });
-  };
 
   const router = createBrowserRouter([
     {
@@ -78,13 +59,12 @@ function App() {
       element: <TaskMenagment tasks={tasks} setTasks={dispatch} />,
     },
     {
-      path: "/new-task",
+      path: "/task-menagment/new-task",
       element: (
         <Form
-          title="Add new task"
-          text="Add"
-          onChange={onChangeTask}
-          onClick={addNewTask}
+          taskKey={tasks.length}
+          setTasks={dispatch}
+          setTaskId={setTaskId}
         />
       ),
     },
@@ -92,24 +72,16 @@ function App() {
     {
       path: "/task-menagment/:taskId",
       element: (
-        <Form
-          tasks={tasks}
-          title="Edit task"
-          text="Edit"
-          onChange={editTask}
-          onClick={edit}
-          selectedTask={selectedTask}
-          setTaskId={setTaskId}
-        />
+        <Form setTaskId={setTaskId} data={selectedTask} setTasks={dispatch} />
       ),
     },
   ]);
-
+  console.log(tasks);
   return (
     <UserProvider>
       <ModalProvider>
         <RouterProvider router={router} />
-      </ModalProvider>{" "}
+      </ModalProvider>
     </UserProvider>
   );
 }

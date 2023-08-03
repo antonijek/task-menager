@@ -8,6 +8,8 @@ const InputWithController = ({
   name,
   control,
   error,
+  className,
+  type = "text",
 }) => {
   return (
     <div>
@@ -17,7 +19,12 @@ const InputWithController = ({
           name={name}
           control={control}
           render={({ field }) => (
-            <input type="text" placeholder={placeholder} {...field} />
+            <input
+              type={type}
+              placeholder={placeholder}
+              {...field}
+              className={className}
+            />
           )}
         />
       )}

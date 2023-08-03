@@ -1,5 +1,4 @@
 import React from "react";
-//import classes from "./TextareaWithController.module.scss";
 import { Controller } from "react-hook-form";
 
 const TextareaWithController = ({
@@ -8,6 +7,7 @@ const TextareaWithController = ({
   name,
   control,
   error,
+  className,
 }) => {
   return (
     <div>
@@ -17,7 +17,13 @@ const TextareaWithController = ({
           name={name}
           control={control}
           render={({ field }) => (
-            <textarea placeholder={placeholder} rows="4" cols="50" {...field} />
+            <textarea
+              placeholder={placeholder}
+              rows="4"
+              cols="50"
+              {...field}
+              className={className}
+            />
           )}
         />
       )}

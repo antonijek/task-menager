@@ -1,7 +1,7 @@
 import React from "react";
 import classes from "../inputs/input.module.scss";
 
-const SubmitButton = ({ label, onClick = () => {}, className = "" }) => {
+const SubmitButton = ({ label, className = "", onClick = () => {} }) => {
   return (
     <button
       type="submit"
