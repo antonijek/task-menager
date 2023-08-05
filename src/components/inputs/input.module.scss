@@ -19,3 +19,24 @@
 .my-label {
   display: block;
 }
+.search-input {
+  padding: 5px 10px;
+  border: 2px solid rgba(56, 133, 89, 0.668);
+  border-radius: 5px;
+  margin-top: 10px;
+  margin-bottom: 5px;
+  width: 30%;
+  min-width: 200px;
+  box-sizing: border-box;
+  font-size: 1.2vw;
+  &::placeholder {
+    color: var(--secondary-color);
+    font-size: 1.5vw;
+  }
+  &:hover {
+    background-color: rgba(195, 233, 211, 0.668);
+  }
+}
+.my-label {
+  display: block;
+}

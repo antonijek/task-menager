@@ -29,7 +29,7 @@ const Home = ({ tasks }) => {
   return (
     <div>
       <InputSearch
-        className={style["my-input"]}
+        className={style["search-input"]}
         placeholder="Search..."
         onChange={(value) => searchTask(tasks, value)}
       />

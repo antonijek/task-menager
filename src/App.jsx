@@ -76,7 +76,7 @@ function App() {
       ),
     },
   ]);
-  console.log(tasks);
+
   return (
     <UserProvider>
       <ModalProvider>

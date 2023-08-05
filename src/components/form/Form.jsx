@@ -93,12 +93,12 @@ const Form = ({ data, setTaskId, setTasks, taskKey }) => {
     title: yup
       .string()
       .required("Field is required!")
-      .min(2, "Field cannot be less than 2 characters long!")
+      .min(3, "Field cannot be less than 3 characters long!")
       .max(20, "Field cannot be more than 20 characters long!"),
     description: yup
       .string()
       .required("Field is required!")
-      .min(2, "Field cannot be less than 2 characters long!")
+      .min(3, "Field cannot be less than 3 characters long!")
       .max(100, "Field cannot be more than 100 characters long!"),
     status: yup.string().required("Field is required!"),
   });
