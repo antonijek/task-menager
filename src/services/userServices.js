@@ -2,11 +2,13 @@ import axios from "axios";
 import { requestInstance } from "../config/requestInstance";
 import { loginModel } from "./models/userModels";
 
+const api = "/user";
+
 export const getCurrentUser = async () => {
   try {
-    const res = await requestInstance.get("/user");
+    const res = await requestInstance.get(api);
     return loginModel(res.data);
   } catch (err) {
-    console.log(err);
+    Promise.reject(err);
   }
 };
