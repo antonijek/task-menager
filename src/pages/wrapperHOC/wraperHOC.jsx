@@ -17,7 +17,7 @@ const wrapperHOC = (Component) => {
       <div className="main-container">
         <nav className={classes["navbar"]}>
           <h2 className={classes["navbar__title"]}>Task Manager</h2>
-          <h2 className={classes["avatar-name"]}>{user.name?.split(" ")[0]}</h2>
+          <h2 className={classes["avatar-name"]}>{user?.firstName}</h2>
           <div className={classes["tabs"]}>
             <NavLink to="/" className={applyClass}>
               Home

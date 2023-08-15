@@ -5,11 +5,17 @@ import ColumnContainer from "../../components/column-container/ColumnContainer";
 import InputSearch from "../../components/inputs/InputSearch";
 import wrapperHOC from "../wrapperHOC/wraperHOC";
 import AuthHoc from "../authHOC/AuthHoc";
+import { getAllTasks } from "../../services/taskServices";
 
 import { Button, DatePicker, Space, version } from "antd";
 
+const baseUrl = "https://jsonplaceholder.typicode.com/todos";
+const url1 = "https://task-management-api.amplitudo.me";
+
 const Home = ({ tasks }) => {
   const [filteredTasks, setFilteredTasks] = useState(tasks);
+
+  //getAllTasks();
 
   const searchTask = (arr, value) => {
     let filteredArr = arr.filter((item) =>

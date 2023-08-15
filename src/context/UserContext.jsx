@@ -1,59 +1,42 @@
 import { useState, useEffect } from "react";
 import { createContext, useContext } from "react";
+import { set, get, clear, exists } from "../services/storageServices";
+import { getCurrentUser } from "../services/userServices";
+import { storageKeys } from "../config/config";
 
-const users = [
-  {
-    id: 1,
-    email: "antonijek@yahoo.com",
-    password: "12345678",
-    name: "Antonije Knezevic",
-  },
-  {
-    id: 2,
-    email: "marko@yahoo.com",
-    password: "12345678",
-    name: "Marko Markovic",
-  },
-];
 const UserContext = createContext();
 
 const UserProvider = ({ children }) => {
-  let id = JSON.parse(localStorage.getItem("currentUserId"));
-  const [user, setUser] = useState(id);
+  const [user, setUser] = useState(null);
 
-  useEffect(() => {
-    let currentUser = users.find((item) => item.id === id);
-    setUser(currentUser);
-  }, []);
-
-  const login = (email, password) => {
-    const currentUser = users.find((user) => user.email === email);
-    let success = false;
-    if (currentUser) {
-      if (currentUser.password === password) {
-        setUser(currentUser);
-        localStorage.setItem("currentUserId", JSON.stringify(currentUser.id));
-        success = true;
+  const getUser = async () => {
+    try {
+      if (exists(storageKeys.USER)) {
+        const res = await getCurrentUser();
+        setUser(res);
       } else {
         setUser(null);
       }
-    } else {
+    } catch (err) {
       setUser(null);
     }
-    return success;
   };
 
   const logout = () => {
     setUser(null);
-    localStorage.removeItem("currentUserId");
+    clear();
   };
+
+  useEffect(() => {
+    getUser();
+  }, []);
 
   return (
     <UserContext.Provider
       value={{
-        login: (email, password) => login(email, password),
         logout: () => logout(),
         user: user,
+        getUser: () => getUser(),
       }}
     >
       {children}

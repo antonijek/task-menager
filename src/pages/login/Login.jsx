@@ -6,17 +6,28 @@ import style from "../../components/form/form.module.scss";
 import Label from "../../components/Label";
 import { userData } from "../../context/UserContext";
 import { useNavigate } from "react-router-dom";
+import { login } from "../../services/authServices";
+
+import { get, set } from "../../services/storageServices";
+import { storageKeys } from "../../config/config";
 
 const Login = () => {
   const [formData, setFormData] = useState();
-  const { login } = userData();
+  const { getUser, logout, user } = userData();
   const navigate = useNavigate();
 
-  const onLogin = () => {
-    const success = login(formData?.email, formData?.password);
+  console.log(user);
 
-    if (success) {
+  const onLogin = async () => {
+    try {
+      const res = await login(formData?.email, formData?.password);
+      console.log(res);
+      set(storageKeys.USER, res.access_token);
+      await getUser();
       navigate("/");
+      return res;
+    } catch (err) {
+      console.log(err);
     }
   };
 
