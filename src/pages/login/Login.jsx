@@ -1,6 +1,7 @@
 import React from "react";
 import { useState } from "react";
-import { Input, Button } from "antd";
+import Input from "../../components/inputs/Input";
+import SubmitButton from "../../components/button/SubmitButton";
 import classes from "../../components/inputs/input.module.scss";
 import style from "../../components/form/form.module.scss";
 import Label from "../../components/Label";
@@ -55,9 +56,11 @@ const Login = () => {
           onChange={(e) => changeData(e)}
         />
         <div className={style["btn-submit"]}>
-          <Button className={classes["my-input"]} onClick={onLogin}>
-            Submit
-          </Button>
+          <SubmitButton
+            className={classes["my-input"]}
+            onClick={onLogin}
+            label="  Submit"
+          />
         </div>
       </div>
     </div>
