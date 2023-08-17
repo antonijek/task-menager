@@ -1,25 +1,18 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import InputWithController from "../../components/inputs/InputWithController";
 import TextAreaWithController from "../../components/inputs/TextAreaWithController";
-import { useParams, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import classes from "../../components/form/form.module.scss";
 import style from "../../components/inputs/input.module.scss";
-import { statuses } from "../../constants/statuses";
 import SubmitButton from "../../components/button/SubmitButton";
-import SelectWithController from "../../components/inputs/SelectWithController";
-import ImageUploadWithController from "../../components/uploadFile/UploadFile";
 import { register } from "../../services/authServices";
-import UploadFile from "../../components/uploadFile/UploadFile";
 
-const Register = ({ data, setTaskId, setTasks, taskKey }) => {
-  const [formData, setFormData] = useState(null);
+const Register = () => {
   const [file, setFile] = useState(null);
   const navigate = useNavigate();
-
-  console.log(file);
 
   const schema = yup.object({
     name: yup
@@ -54,7 +47,6 @@ const Register = ({ data, setTaskId, setTasks, taskKey }) => {
   });
 
   const {
-    setValue,
     handleSubmit,
     control,
     formState: { errors },
@@ -64,7 +56,7 @@ const Register = ({ data, setTaskId, setTasks, taskKey }) => {
 
   const onClose = (e) => {
     e.preventDefault();
-    navigate("/task-menagment");
+    // navigate("/");
   };
 
   const onSubmit = async (data) => {
@@ -78,8 +70,8 @@ const Register = ({ data, setTaskId, setTasks, taskKey }) => {
 
     try {
       const res = await register(formData);
-      console.log(res);
-      //navigate("/task-menagment");
+
+      navigate("/");
     } catch (error) {
       console.error("Error registering:", error);
     }
