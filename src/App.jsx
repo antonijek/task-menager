@@ -8,6 +8,7 @@ import ModalProvider from "./context/ModalContext";
 import Form from "./components/form/Form";
 import Login from "./pages/login/Login";
 import UserProvider from "./context/UserContext";
+import Register from "./pages/register/Register";
 
 const tasksReducer = (state, action) => {
   switch (action.type) {
@@ -49,6 +50,11 @@ function App() {
       path: "/",
       element: <Home tasks={tasks} />,
     },
+    {
+      path: "/register",
+      element: <Register />,
+    },
+
     {
       path: "/login",
       element: <Login />,

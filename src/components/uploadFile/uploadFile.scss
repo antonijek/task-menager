@@ -1,0 +1,22 @@
+.container {
+  width: 100%;
+  padding: 4px 30px;
+
+  label {
+    display: block;
+    margin-bottom: 7px;
+    font-family: "Gilroy-Regular", sans-serif;
+    font-size: 14px;
+    color: var(--text-color);
+  }
+
+  input {
+    color: var(--text-color);
+    font-family: "Gilroy-Bold", sans-serif;
+    font-size: 14px;
+    width: 100%;
+    padding: 12px 14px;
+    border-radius: 6px;
+    border: 1px solid var(--nav-item-color);
+  }
+}

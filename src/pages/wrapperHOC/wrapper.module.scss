@@ -1,27 +1,44 @@
+/* wrapperStyles.module.css */
+
+/* Navbar */
 .navbar {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   background-color: var(--primary-color);
   padding: 2%;
-  align-items: center;
 }
-.navbar__tab {
-  padding: 1% 2%;
-  border-radius: 5px;
-  font-size: 1.5vw;
-  background-color: rgba(56, 133, 89, 0.668);
-  color: white;
-  height: 10%;
-  cursor: pointer;
-}
+
 .navbar__title {
   color: rgba(56, 133, 89, 0.668);
   font-size: 3vw;
   margin: 0;
 }
+
 .avatar-name {
   color: rgba(225, 121, 9, 0.668);
   margin: 0;
+}
+
+/* Tabs */
+.tabs {
+  display: flex;
+  gap: 20px;
+}
+
+.nav-link {
+  font-size: 1.5vw;
+  color: rgba(56, 133, 89, 0.668);
+  text-decoration: none;
+  padding: 0;
+  border: none;
+  background: none;
+
+  transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+  color: rgba(225, 121, 9, 0.668);
 }
 
 .active {
@@ -29,6 +46,61 @@
   padding-bottom: 0px;
 }
 
+/* Dropdown */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropbtn {
+  font-size: 1.5vw;
+  color: rgba(56, 133, 89, 0.668);
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  min-width: 160px;
+  z-index: 1;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.dropdown-content a {
+  font-size: 1.5vw;
+  color: rgba(56, 133, 89, 0.668);
+  padding: 10px 16px;
+  text-decoration: none;
+  display: block;
+  transition: color 0.3s ease;
+}
+
+.dropdown-content a:hover {
+  color: rgba(225, 121, 9, 0.668);
+}
+
+/* Logout */
+.logout {
+  font-size: 1.5vw;
+  color: rgba(56, 133, 89, 0.668);
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.logout:hover {
+  color: rgba(225, 121, 9, 0.668);
+}
 .pending {
   color: rgba(56, 133, 89, 0.668);
   margin-left: 10px;
@@ -37,17 +109,5 @@
   margin-top: 0;
 }
 .pending:hover {
-  color: rgba(225, 121, 9, 0.668);
-}
-
-.tabs {
-  display: flex;
-}
-.logout {
-  color: rgba(56, 133, 89, 0.668);
-  margin: 0 10px;
-  cursor: pointer;
-}
-.logout:hover {
   color: rgba(225, 121, 9, 0.668);
 }

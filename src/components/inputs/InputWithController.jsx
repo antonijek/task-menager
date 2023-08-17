@@ -10,6 +10,7 @@ const InputWithController = ({
   error,
   className,
   type = "text",
+  onChange,
 }) => {
   return (
     <div>
@@ -24,6 +25,12 @@ const InputWithController = ({
               placeholder={placeholder}
               {...field}
               className={className}
+              onChange={(e) => {
+                field.onChange(e); // React-hook-form's onChange
+                if (onChange) {
+                  onChange(e); // Custom onChange
+                }
+              }}
             />
           )}
         />
