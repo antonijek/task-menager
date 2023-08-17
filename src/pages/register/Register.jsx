@@ -74,15 +74,14 @@ const Register = ({ data, setTaskId, setTasks, taskKey }) => {
     formData.append("email", data.email);
     formData.append("password", data.password);
     formData.append("description", data.description);
-    formData.append("image", file); // Appending the selected file
+    formData.append("image", file);
 
     try {
-      const res = await register(formData); // Assuming your register function handles the FormData
-      console.log(res); // Handle the response as needed
-      //navigate("/task-menagment"); // Navigating after successful registration
+      const res = await register(formData);
+      console.log(res);
+      //navigate("/task-menagment");
     } catch (error) {
       console.error("Error registering:", error);
-      // Handle error state or show error message to the user
     }
   };
   console.log(file);

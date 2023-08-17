@@ -26,9 +26,9 @@ const InputWithController = ({
               {...field}
               className={className}
               onChange={(e) => {
-                field.onChange(e); // React-hook-form's onChange
+                field.onChange(e);
                 if (onChange) {
-                  onChange(e); // Custom onChange
+                  onChange(e);
                 }
               }}
             />
