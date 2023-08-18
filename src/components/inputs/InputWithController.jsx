@@ -11,6 +11,7 @@ const InputWithController = ({
   className,
   type = "text",
   onChange,
+  disabled = false,
 }) => {
   return (
     <div>
@@ -21,6 +22,7 @@ const InputWithController = ({
           control={control}
           render={({ field }) => (
             <input
+              disabled={disabled}
               type={type}
               placeholder={placeholder}
               {...field}

@@ -1,10 +1,10 @@
-export const loginModel = (data) => {
+export const currentUserModel = (data) => {
   return {
     id: data?.id,
-    firstName: data?.name,
-    lastName: data?.surname,
+    name: data?.name,
+    surname: data?.surname,
     description: data?.description,
-    image: data?.image_id,
+    image_id: data?.image_id,
     email: data?.email,
   };
 };

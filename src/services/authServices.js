@@ -2,14 +2,16 @@ import axios from "axios";
 import { requestInstance } from "../config/requestInstance";
 import { loginModel, registerModel } from "./models/authModels";
 
-const api = "/login";
+const apiLogin = "/login";
+const apiRegister = "/register";
 
 export const login = async (email, password) => {
   try {
-    const res = await requestInstance.post(api, {
+    const res = await requestInstance.post(apiLogin, {
       email,
       password,
     });
+    console.log(res);
     const response = loginModel(res.data);
     return response;
   } catch (err) {
@@ -18,7 +20,7 @@ export const login = async (email, password) => {
 };
 export const register = async (data) => {
   try {
-    const res = await requestInstance.post("/register", data);
+    const res = await requestInstance.post(apiRegister, data);
     const response = registerModel(res.data);
     return response;
   } catch (err) {

@@ -9,6 +9,9 @@ import Form from "./components/form/Form";
 import Login from "./pages/login/Login";
 import UserProvider from "./context/UserContext";
 import Register from "./pages/register/Register";
+import MyProfile from "./pages/myProfile/MyProfile";
+import Categories from "./pages/categories/Categories";
+import Statuses from "./pages/statuses/Statuses";
 
 const tasksReducer = (state, action) => {
   switch (action.type) {
@@ -56,8 +59,23 @@ function App() {
     },
 
     {
+      path: "/my-profile",
+      element: <MyProfile />,
+    },
+
+    {
       path: "/login",
       element: <Login />,
+    },
+
+    {
+      path: "/categories",
+      element: <Categories />,
+    },
+
+    {
+      path: "/statuses",
+      element: <Statuses />,
     },
 
     {

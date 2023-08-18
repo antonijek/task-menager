@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import classes from "../wrapperHOC/wrapper.module.scss";
 import { userData } from "../../context/UserContext";
-import { Button } from "antd";
+import DropdownTabs from "../../components/dropdown/Dropdown";
 
 const applyClass = ({ isActive }) => {
   return isActive
@@ -10,7 +10,7 @@ const applyClass = ({ isActive }) => {
     : `${classes["pending"]}`;
 };
 
-const DropdownTabs = () => {
+/* const DropdownTabs = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleDropdown = () => {
@@ -19,12 +19,6 @@ const DropdownTabs = () => {
 
   return (
     <div className={classes["tabs"]}>
-      <NavLink to="/" className={applyClass}>
-        Home
-      </NavLink>
-      <NavLink to="/add-task" className={applyClass}>
-        Add Task
-      </NavLink>
       <div className={classes["dropdown"]}>
         <button className={classes["dropbtn"]} onClick={toggleDropdown}>
           Task Management
@@ -35,30 +29,38 @@ const DropdownTabs = () => {
               All Tasks
             </NavLink>
             <NavLink to="/completed-tasks" className={applyClass}>
-              Completed Tasks
+              Task status
             </NavLink>
             <NavLink to="/pending-tasks" className={applyClass}>
-              Pending Tasks
+              Task Category
             </NavLink>
           </div>
         )}
       </div>
-      <NavLink to="/my-profile" className={applyClass}>
-        My Profile
-      </NavLink>
     </div>
   );
-};
+}; */
 
 const wrapperHOC = (Component) => {
   return (props) => {
     const { user, logout } = userData();
+    console.log(user);
+
     return (
       <div className="main-container">
         <nav className={classes["navbar"]}>
           <h2 className={classes["navbar__title"]}>Task Manager</h2>
-          <h2 className={classes["avatar-name"]}>{user?.firstName}</h2>
+          <h2 className={classes["avatar-name"]}>{user?.name}</h2>
+          <NavLink to="/" className={applyClass}>
+            Home
+          </NavLink>
+          <NavLink to="/add-task" className={applyClass}>
+            Add Task
+          </NavLink>
           <DropdownTabs />
+          <NavLink to="/my-profile" className={applyClass}>
+            My Profile
+          </NavLink>
           <h4 className={classes["logout"]} onClick={() => logout()}>
             Logout
           </h4>

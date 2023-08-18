@@ -8,6 +8,7 @@ import Button from "../../components/button/Button";
 import wrapperHOC from "../wrapperHOC/wraperHOC";
 import { useNavigate } from "react-router-dom";
 import AuthHoc from "../authHOC/AuthHoc";
+import { getAllTasks } from "../../services/taskServices";
 
 const TaskMenagment = ({ tasks, setTasks }) => {
   const [allTasksCopy, setAllTasksCopy] = useState(tasks);
@@ -72,6 +73,7 @@ const TaskMenagment = ({ tasks, setTasks }) => {
     <div>
       <TaskProvider data={providedData}>
         <Buttons />
+        <button onClick={getAllTasks}>OK</button>
         <Table columns={headers} dataSource={allTasksCopy} />
       </TaskProvider>
     </div>
