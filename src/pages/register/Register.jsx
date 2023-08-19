@@ -9,8 +9,13 @@ import classes from "../../components/form/form.module.scss";
 import style from "../../components/inputs/input.module.scss";
 import SubmitButton from "../../components/button/SubmitButton";
 import { register } from "../../services/authServices";
+import { login } from "../../services/authServices";
+import { set } from "../../services/storageServices";
+import { storageKeys } from "../../config/config";
+import { userData } from "../../context/UserContext";
 
 const Register = () => {
+  const { getUser, logout, user } = userData();
   const [file, setFile] = useState(null);
   const navigate = useNavigate();
 
@@ -69,9 +74,14 @@ const Register = () => {
     formData.append("image", file);
 
     try {
-      const res = await register(formData);
+      await register(formData);
 
+      const res = await login(data?.email, data?.password);
+
+      set(storageKeys.USER, res.access_token);
+      await getUser();
       navigate("/");
+      return res;
     } catch (error) {
       console.error("Error registering:", error);
     }

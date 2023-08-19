@@ -1,7 +1,13 @@
 export function getAllTasksModel(data) {
-  return data.map((item) => ({
-    id: item?.id,
-    title: item?.title,
-    description: item?.description,
-  }));
+  return data;
+}
+export function addNewTaskModel(data) {
+  return data;
+}
+
+export function tasksByStatusesModel(data) {
+  return data;
+}
+export function editTaskModel(data) {
+  return data;
 }

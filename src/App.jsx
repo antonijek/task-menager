@@ -12,6 +12,8 @@ import Register from "./pages/register/Register";
 import MyProfile from "./pages/myProfile/MyProfile";
 import Categories from "./pages/categories/Categories";
 import Statuses from "./pages/statuses/Statuses";
+import { getAllTasks } from "./services/taskServices";
+import { tasksByStatuses } from "./services/taskServices";
 
 const tasksReducer = (state, action) => {
   switch (action.type) {
@@ -43,15 +45,31 @@ function App() {
   const [tasks, dispatch] = useReducer(tasksReducer, allTasks);
   const [taskId, setTaskId] = useState();
   const [selectedTask, setSelectedTask] = useState();
+  const [Tasks, setTasks] = useState([]);
 
   useEffect(() => {
     setSelectedTask(tasks.find((task) => task.key === taskId));
   }, [taskId]);
 
+  const getTasks = async () => {
+    try {
+      const res = await getAllTasks();
+      setTasks(res);
+
+      console.log(res);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    getTasks();
+  }, []);
+
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <Home tasks={tasks} />,
+      element: <Home tasks={Tasks} />,
     },
     {
       path: "/register",
@@ -80,7 +98,7 @@ function App() {
 
     {
       path: "/task-menagment",
-      element: <TaskMenagment tasks={tasks} setTasks={dispatch} />,
+      element: <TaskMenagment tasks={Tasks} setTasks={setTasks} />,
     },
     {
       path: "/task-menagment/new-task",

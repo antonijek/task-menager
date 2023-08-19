@@ -1,81 +1,4 @@
-/* //import Input from "../inputs/Input";
-import { useEffect } from "react";
-import classes from "./form.module.scss";
-import style from "../inputs/input.module.scss";
-import { statuses } from "../../constants/statuses";
-//import TextArea from "../inputs/TextArea";
-import Select from "../inputs/Select";
-//import Button from "../button/Button";
-import { Input, Button } from "antd";
-const { TextArea } = Input;
-import Label from "../Label";
-import { useParams, useNavigate } from "react-router-dom";
-
-const Form = ({
-  title,
-  text,
-  onChange,
-  onClick,
-  selectedTask,
-  setTaskId = () => {},
-}) => {
-  const navigate = useNavigate();
-  const { taskId } = useParams();
-
-  useEffect(() => {
-    setTaskId(taskId);
-  }, [taskId]);
-
-  const onClose = () => {
-    navigate("/task-menagment");
-  };
-  console.log(selectedTask);
-  return (
-    <form action="" className={classes["my-form"]}>
-      <Button className={classes["close"]} onClick={(e) => onClose(e)}>
-        X
-      </Button>
-      <h2 className={classes["title"]}>{title}</h2>
-      <Label title="Title" />
-      <Input
-        className={style["my-input"]}
-        value={selectedTask?.title}
-        name="title"
-        onChange={(e) => onChange(e)}
-      />
-      <Label title="Description" />
-      <TextArea
-        className={style["my-input"]}
-        value={selectedTask?.description}
-        name="description"
-        onChange={(e) => onChange(e)}
-        rows="4"
-      />
-      <Select
-        name="status"
-        className={classes["select"]}
-        onChange={(e) => onChange(e)}
-        value={selectedTask?.status}
-        text={selectedTask?.status}
-        arr={statuses}
-      />
-
-      <Button
-        className={style["my-input"]}
-        onClick={(e) => {
-          onClick(e);
-          navigate("/task-menagment");
-        }}
-      >
-        {text}
-      </Button>
-    </form>
-  );
-};
-
-export default Form; */
-
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -84,13 +7,24 @@ import TextAreaWithController from "../inputs/TextAreaWithController";
 import { useParams, useNavigate } from "react-router-dom";
 import classes from "./form.module.scss";
 import style from "../inputs/input.module.scss";
-import { statuses } from "../../constants/statuses";
 import SubmitButton from "../button/SubmitButton";
 import SelectWithController from "../inputs/SelectWithController";
+import { addNewTask } from "../../services/taskServices";
+import { getAllStatuses } from "../../services/statusServices";
+import { getAllCategories } from "../../services/categoryServices";
+import { useModal } from "../../context/ModalContext";
+import { editTask } from "../../services/taskServices";
 
 const Form = ({ data, setTaskId, setTasks, taskKey }) => {
+  const [statuses, setStatuses] = useState([]);
+  const [categories, setCategories] = useState([]);
+
+  console.log(data);
+
+  const modal = useModal();
+  console.log(modal);
   const schema = yup.object({
-    title: yup
+    name: yup
       .string()
       .required("Field is required!")
       .min(3, "Field cannot be less than 3 characters long!")
@@ -100,14 +34,34 @@ const Form = ({ data, setTaskId, setTasks, taskKey }) => {
       .required("Field is required!")
       .min(3, "Field cannot be less than 3 characters long!")
       .max(100, "Field cannot be more than 100 characters long!"),
-    status: yup.string().required("Field is required!"),
+    status: yup.string(),
+    category: yup.string(),
   });
 
   const { taskId } = useParams();
-  const navigate = useNavigate();
+
+  const getStatusesAndCategories = async () => {
+    try {
+      const statuses = await getAllStatuses();
+      const categories = await getAllCategories();
+
+      setStatuses(
+        statuses.map((status) => ({ label: status.name, value: status.id }))
+      );
+      setCategories(
+        categories.map((category) => ({
+          label: category.name,
+          value: category.id,
+        }))
+      );
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   useEffect(() => {
-    setTaskId(taskId);
-  }, [taskId]);
+    getStatusesAndCategories();
+  }, []);
 
   const {
     setValue,
@@ -118,36 +72,46 @@ const Form = ({ data, setTaskId, setTasks, taskKey }) => {
     resolver: yupResolver(schema),
     defaultValues: {
       key: data?.key,
-      title: data?.title || "",
+      name: data?.name || "",
       description: data?.description,
-      status: data?.status,
+      status_id: data?.status_id,
+      category_id: data?.category_id,
     },
   });
 
   useEffect(() => {
-    if (data?.title) {
+    if (data?.name) {
       setValue("key", data.key);
-      setValue("title", data.title);
+      setValue("name", data.name);
       setValue("description", data.description);
-      setValue("status", data.status);
+      setValue("status_id", data.status_id);
+      setValue("category_id", data.category_id);
     }
   }, [data]);
 
-  const onClose = (e) => {
-    e.preventDefault();
-    navigate("/task-menagment");
+  const addNew = async (data) => {
+    try {
+      const res = await addNewTask(data);
+      modal.close();
+    } catch (err) {
+      console.log(err);
+    }
   };
 
-  const onSubmit = (data) => {
-    data.key
-      ? setTasks({ type: "edit-task", data: data })
-      : setTasks({
-          type: "add-task",
-          data: { ...data, key: `task-${taskKey}` },
-        });
-    navigate("/task-menagment");
+  const edit = async (data, id) => {
+    try {
+      const res = await editTask(data, id);
+      modal.close();
+    } catch (err) {
+      console.log(err);
+    }
   };
 
+  const onSubmit = (formData) => {
+    const { status, category, ...rest } = formData;
+    formData.name ? edit(formData, data.id) : addNew(rest);
+  };
+  console.log(data);
   return (
     <div>
       <form
@@ -161,10 +125,10 @@ const Form = ({ data, setTaskId, setTasks, taskKey }) => {
 
         <InputWithController
           className={style["my-input"]}
-          label="Title"
-          name="title"
+          label="Name"
+          name="name"
           control={control}
-          error={errors?.title?.message}
+          error={errors?.name?.message}
         />
         <TextAreaWithController
           label="Description"
@@ -174,18 +138,23 @@ const Form = ({ data, setTaskId, setTasks, taskKey }) => {
           className={style["my-input"]}
         />
         <SelectWithController
-          label="Select an option"
+          label="Select status"
           options={statuses}
-          name="status"
+          name="status_id"
           control={control}
           error={errors?.status?.message}
           className={style["my-input"]}
         />
+        <SelectWithController
+          label="Select category"
+          options={categories}
+          name="category_id"
+          control={control}
+          error={errors?.category?.message}
+          className={style["my-input"]}
+        />
 
         <SubmitButton label="Submit" className={style["my-input"]} />
-        <button className={classes["close"]} onClick={(e) => onClose(e)}>
-          x
-        </button>
       </form>
     </div>
   );

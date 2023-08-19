@@ -8,12 +8,15 @@ import Button from "../../components/button/Button";
 import wrapperHOC from "../wrapperHOC/wraperHOC";
 import { useNavigate } from "react-router-dom";
 import AuthHoc from "../authHOC/AuthHoc";
-import { getAllTasks } from "../../services/taskServices";
+import { useModal } from "../../context/ModalContext";
+import Form from "../../components/form/Form";
 
 const TaskMenagment = ({ tasks, setTasks }) => {
   const [allTasksCopy, setAllTasksCopy] = useState(tasks);
   const [editableTask, setEditableTask] = useState();
   const [taskIndex, setTaskIndex] = useState();
+
+  const modal = useModal();
 
   const [isFormNewOpen, setIsFormNewOpen] = useState(false);
   const [deletedTasks, setDeletedTasks] = useState([]);
@@ -21,8 +24,9 @@ const TaskMenagment = ({ tasks, setTasks }) => {
   const navigate = useNavigate();
 
   let headers = [
-    { title: "Name", dataIndex: "title" },
-    { title: "Status", dataIndex: "status" },
+    { title: "Name", dataIndex: "name" },
+    { title: "Status", dataIndex: "status_id" },
+    { title: "Category", dataIndex: "category_id" },
     {
       title: "Actions",
       dataIndex: null,
@@ -62,7 +66,7 @@ const TaskMenagment = ({ tasks, setTasks }) => {
   };
 
   const onEditTask = (task) => {
-    navigate(`/task-menagment/${task.key}`);
+    modal.open("Edit new-task", <Form data={task} />);
   };
   const onDeleteTask = (task) => {
     setTasks({ type: "delete-task", data: task });
@@ -73,8 +77,8 @@ const TaskMenagment = ({ tasks, setTasks }) => {
     <div>
       <TaskProvider data={providedData}>
         <Buttons />
-        <button onClick={getAllTasks}>OK</button>
-        <Table columns={headers} dataSource={allTasksCopy} />
+
+        <Table columns={headers} dataSource={tasks} />
       </TaskProvider>
     </div>
   );

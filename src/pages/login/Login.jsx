@@ -17,12 +17,9 @@ const Login = () => {
   const { getUser, logout, user } = userData();
   const navigate = useNavigate();
 
-  console.log(user);
-
   const onLogin = async () => {
     try {
       const res = await login(formData?.email, formData?.password);
-      console.log(res);
       set(storageKeys.USER, res.access_token);
       await getUser();
       navigate("/");
@@ -61,6 +58,10 @@ const Login = () => {
             onClick={onLogin}
             label="  Submit"
           />
+        </div>
+        <div>
+          <p>You dont have acount?</p>
+          <button onClick={() => navigate("/register")}>Register</button>
         </div>
       </div>
     </div>

@@ -1,3 +1,6 @@
 export function getAllCategoryModel(data) {
-  return data;
+  return data.map((category) => ({
+    ...category,
+    key: category.id,
+  }));
 }

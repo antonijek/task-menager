@@ -19,6 +19,7 @@ const ModalProvider = ({ children }) => {
     <ModalContext.Provider
       value={{
         open: (title, content) => open(title, content),
+        close: () => close(),
       }}
     >
       <Modal

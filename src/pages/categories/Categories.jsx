@@ -59,16 +59,16 @@ const Categories = () => {
     },
   ];
 
-  const transformedCategories = categories
+  /* const transformedCategories = categories
     ? categories.map((category) => ({
         ...category,
         key: category.id,
       }))
-    : [];
+    : []; */
 
   return (
     <div>
-      <Table columns={columns} dataSource={transformedCategories} />
+      <Table columns={columns} dataSource={categories} />
     </div>
   );
 };

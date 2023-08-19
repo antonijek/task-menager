@@ -10,7 +10,7 @@ const ColumnContainer = ({ list = [], columnTitle = "" }) => {
         {` (${list.length})`}
       </h2>
 
-      {list.map((task, index) => (
+      {list?.map((task, index) => (
         <Card key={index} title={task.title} description={task.description} />
       ))}
     </div>

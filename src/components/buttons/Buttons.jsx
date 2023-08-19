@@ -4,11 +4,14 @@ import classes from "../../pages/task-menagment/task-managment.module.scss";
 import Button from "../../components/button/Button";
 import { statuses } from "../../constants/statuses";
 import { useNavigate } from "react-router-dom";
+import { useModal } from "../../context/ModalContext";
+import Form from "../form/Form";
 
 const Buttons = () => {
   const { setAllTasksCopy, tasks, deletedTasks, setDeletedTasks } =
     useTaskData();
   const navigate = useNavigate();
+  const modal = useModal();
 
   useEffect(() => {
     setAllTasksCopy(tasks);
@@ -37,17 +40,6 @@ const Buttons = () => {
         onClick={(e) => showAllTasks(e)}
         text="All tasks"
       />
-
-      {statuses.map((item) => (
-        <Button
-          type="primary"
-          className={classes["green-button"]}
-          key={item}
-          onClick={() => selectTabs(item)}
-          text={item}
-        />
-      ))}
-
       <Button
         type="primary"
         className={classes["green-button"]}
@@ -58,7 +50,7 @@ const Buttons = () => {
       <Button
         type="primary"
         className={classes["blue-button"]}
-        onClick={() => navigate("new-task")}
+        onClick={() => modal.open("Add new-task", <Form />)}
         text="Add new task"
       />
     </div>

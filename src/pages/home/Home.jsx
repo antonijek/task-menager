@@ -9,13 +9,8 @@ import { getAllTasks } from "../../services/taskServices";
 
 import { Button, DatePicker, Space, version } from "antd";
 
-const baseUrl = "https://jsonplaceholder.typicode.com/todos";
-const url1 = "https://task-management-api.amplitudo.me";
-
 const Home = ({ tasks }) => {
   const [filteredTasks, setFilteredTasks] = useState(tasks);
-
-  //getAllTasks();
 
   const searchTask = (arr, value) => {
     let filteredArr = arr.filter((item) =>
@@ -40,10 +35,22 @@ const Home = ({ tasks }) => {
         onChange={(value) => searchTask(tasks, value)}
       />
       <div className={classes["home"]}>
-        <ColumnContainer list={wishList} columnTitle="Wish List" />
-        <ColumnContainer list={toDo} columnTitle="To Do" />
-        <ColumnContainer list={inProgress} columnTitle="In-Progress List" />
-        <ColumnContainer list={done} columnTitle="Done List" />
+        <ColumnContainer
+          list={tasks.filter((item) => item.status_id === 1)}
+          columnTitle="Wish List"
+        />
+        <ColumnContainer
+          list={tasks.filter((item) => item.status_id === 2)}
+          columnTitle="To Do"
+        />
+        <ColumnContainer
+          list={tasks.filter((item) => item.status_id === 3)}
+          columnTitle="In-Progress List"
+        />
+        <ColumnContainer
+          list={tasks.filter((item) => item.status_id === 4)}
+          columnTitle="Done List"
+        />
       </div>
     </div>
   );

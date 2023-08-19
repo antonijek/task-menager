@@ -23,8 +23,8 @@ const SelectWithController = ({
                 Select an option
               </option>
               {options.map((option) => (
-                <option key={option} value={option}>
-                  {option}
+                <option key={option.value} value={option.value}>
+                  {option.label}
                 </option>
               ))}
             </select>

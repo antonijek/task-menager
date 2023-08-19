@@ -58,16 +58,9 @@ const Statuses = () => {
     },
   ];
 
-  const transformedStatuses = statuses
-    ? statuses.map((status) => ({
-        ...status,
-        key: status.id,
-      }))
-    : [];
-
   return (
     <div>
-      <Table columns={columns} dataSource={transformedStatuses} />
+      <Table columns={columns} dataSource={statuses} />
     </div>
   );
 };
