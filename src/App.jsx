@@ -102,13 +102,7 @@ function App() {
     },
     {
       path: "/task-menagment/new-task",
-      element: (
-        <Form
-          taskKey={tasks.length}
-          setTasks={dispatch}
-          setTaskId={setTaskId}
-        />
-      ),
+      element: <Form setTasks={setTasks} />,
     },
 
     {

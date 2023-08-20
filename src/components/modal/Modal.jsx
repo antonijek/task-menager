@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { Modal as AntdModal } from "antd";
+import Spiner from "../spiner/Spiner";
 import "./modal.scss";
 
-const Modal = ({ open, title = "", content = <></>, close }) => {
+const Modal = ({ open, title = "", content = <></>, close, spiner }) => {
   return (
     <AntdModal
       title={title}
@@ -13,6 +14,7 @@ const Modal = ({ open, title = "", content = <></>, close }) => {
       onCancel={close}
     >
       {content}
+      {spiner && <Spiner />}
     </AntdModal>
   );
 };

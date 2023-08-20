@@ -24,7 +24,7 @@ const wrapperHOC = (Component) => {
           <NavLink to="/" className={applyClass}>
             Home
           </NavLink>
-          <NavLink to="/add-task" className={applyClass}>
+          <NavLink to="/task-menagment/add-task" className={applyClass}>
             Add Task
           </NavLink>
           <DropdownTabs />

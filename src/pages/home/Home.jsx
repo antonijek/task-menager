@@ -22,11 +22,11 @@ const Home = ({ tasks }) => {
 
   return (
     <div>
-      <InputSearch
+      {/*  <InputSearch
         className={style["search-input"]}
         placeholder="Search..."
         onChange={(value) => searchTask(tasks, value)}
-      />
+      /> */}
       <div className={classes["home"]}>
         <ColumnContainer
           list={tasks.filter((item) => item.status_id === 1)}

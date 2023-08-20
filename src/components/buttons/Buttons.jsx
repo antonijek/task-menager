@@ -9,14 +9,16 @@ import Form from "../form/Form";
 import { getAllTasks } from "../../services/taskServices";
 
 const Buttons = () => {
-  const { setAllTasksCopy, tasks, deletedTasks, setDeletedTasks } =
-    useTaskData();
+  const {
+    setAllTasksCopy,
+    tasks,
+    setTasks,
+    deletedTasks,
+    setDeletedTasks,
+    setSpiner,
+  } = useTaskData();
   const navigate = useNavigate();
   const modal = useModal();
-
-  useEffect(() => {
-    setAllTasksCopy(tasks);
-  }, [tasks]);
 
   /*  const showAllTasks = async() => {
     try{
@@ -55,7 +57,12 @@ const Buttons = () => {
       <Button
         type="primary"
         className={classes["blue-button"]}
-        onClick={() => modal.open("Add new-task", <Form />)}
+        onClick={() =>
+          modal.open(
+            "Add new-task",
+            <Form setTasks={setTasks} setSpiner={setSpiner} />
+          )
+        }
         text="Add new task"
       />
     </div>

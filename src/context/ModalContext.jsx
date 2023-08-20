@@ -1,12 +1,14 @@
 import { createContext, useContext } from "react";
 import { useState } from "react";
 import Modal from "../components/modal/Modal";
+import Spiner from "../components/spiner/Spiner";
 
 const ModalContext = createContext();
 
 const ModalProvider = ({ children }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [modalData, setModalData] = useState();
+  const [spiner, setSpiner] = useState(false);
 
   const open = (title, content) => {
     setModalData({ title, content });
@@ -20,6 +22,7 @@ const ModalProvider = ({ children }) => {
       value={{
         open: (title, content) => open(title, content),
         close: () => close(),
+        setSpiner: setSpiner,
       }}
     >
       <Modal
@@ -27,6 +30,7 @@ const ModalProvider = ({ children }) => {
         open={isOpen}
         close={close}
         content={modalData?.content}
+        spiner={spiner}
       />
       {children}
     </ModalContext.Provider>

@@ -14,7 +14,6 @@ import { deleteTask } from "../../services/taskServices";
 
 const TaskMenagment = ({ tasks, setTasks }) => {
   const [allTasksCopy, setAllTasksCopy] = useState(tasks);
-  const [editableTask, setEditableTask] = useState();
   const [taskIndex, setTaskIndex] = useState();
 
   const modal = useModal();
@@ -52,22 +51,14 @@ const TaskMenagment = ({ tasks, setTasks }) => {
   ];
 
   const providedData = {
-    allTasksCopy,
-    setAllTasksCopy,
-    taskIndex,
     tasks,
     setTasks,
-    editableTask,
-    setEditableTask,
-    setIsFormNewOpen,
-    deletedTasks,
-    setDeletedTasks,
     header: headers,
     data: allTasksCopy,
   };
 
   const onEditTask = (task) => {
-    modal.open("Edit new-task", <Form data={task} />);
+    modal.open("Edit new-task", <Form data={task} setTasks={setTasks} />);
   };
   const onDeleteTask = async (task) => {
     try {
@@ -80,8 +71,7 @@ const TaskMenagment = ({ tasks, setTasks }) => {
   return (
     <div>
       <TaskProvider data={providedData}>
-        <Buttons />
-
+        <Buttons setTasks={setTasks} />
         <Table columns={headers} dataSource={tasks} />
       </TaskProvider>
     </div>

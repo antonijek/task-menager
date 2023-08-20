@@ -4,7 +4,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import InputWithController from "../inputs/InputWithController";
 import TextAreaWithController from "../inputs/TextAreaWithController";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import classes from "./form.module.scss";
 import style from "../inputs/input.module.scss";
 import SubmitButton from "../button/SubmitButton";
@@ -12,17 +12,16 @@ import SelectWithController from "../inputs/SelectWithController";
 import { addNewTask } from "../../services/taskServices";
 import { getAllStatuses } from "../../services/statusServices";
 import { getAllCategories } from "../../services/categoryServices";
+import { getAllTasks } from "../../services/taskServices";
 import { useModal } from "../../context/ModalContext";
 import { editTask } from "../../services/taskServices";
 
-const Form = ({ data, setTaskId, setTasks, taskKey }) => {
+const Form = ({ data, setTasks, setSpiner }) => {
   const [statuses, setStatuses] = useState([]);
   const [categories, setCategories] = useState([]);
 
-  console.log(data);
-
   const modal = useModal();
-  console.log(modal);
+
   const schema = yup.object({
     name: yup
       .string()
@@ -64,6 +63,7 @@ const Form = ({ data, setTaskId, setTasks, taskKey }) => {
   }, []);
 
   const {
+    reset,
     setValue,
     handleSubmit,
     control,
@@ -73,13 +73,14 @@ const Form = ({ data, setTaskId, setTasks, taskKey }) => {
     defaultValues: {
       key: data?.key,
       name: data?.name || "",
-      description: data?.description,
+      description: data?.description || "",
       status_id: data?.status_id,
       category_id: data?.category_id,
     },
   });
 
   useEffect(() => {
+    reset();
     if (data?.name) {
       setValue("key", data.key);
       setValue("name", data.name);
@@ -90,30 +91,38 @@ const Form = ({ data, setTaskId, setTasks, taskKey }) => {
   }, [data]);
 
   const addNew = async (data) => {
+    modal.setSpiner(true);
     try {
       const res = await addNewTask(data);
+      const tasks = await getAllTasks();
+      setTasks(tasks);
       modal.close();
+      modal.setSpiner(false);
     } catch (err) {
       console.log(err);
+      modal.setSpiner(false);
     }
   };
 
   const edit = async (data, id) => {
+    setSpiner(true);
     try {
       const res = await editTask(data, id);
+      const tasks = await getAllTasks();
+      setTasks(tasks);
       modal.close();
+      setSpiner(false);
     } catch (err) {
       console.log(err);
+      setSpiner(false);
     }
   };
 
   const onSubmit = (formData) => {
     const { status, category, ...rest } = formData;
-    console.log(data);
-    console.log(formData);
     data?.name ? edit(formData, data.id) : addNew(rest);
   };
-  console.log(data);
+
   return (
     <div>
       <form
