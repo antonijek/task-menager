@@ -109,7 +109,9 @@ const Form = ({ data, setTaskId, setTasks, taskKey }) => {
 
   const onSubmit = (formData) => {
     const { status, category, ...rest } = formData;
-    formData.name ? edit(formData, data.id) : addNew(rest);
+    console.log(data);
+    console.log(formData);
+    data?.name ? edit(formData, data.id) : addNew(rest);
   };
   console.log(data);
   return (

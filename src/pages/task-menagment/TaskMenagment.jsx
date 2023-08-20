@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 import AuthHoc from "../authHOC/AuthHoc";
 import { useModal } from "../../context/ModalContext";
 import Form from "../../components/form/Form";
+import { deleteTask } from "../../services/taskServices";
 
 const TaskMenagment = ({ tasks, setTasks }) => {
   const [allTasksCopy, setAllTasksCopy] = useState(tasks);
@@ -68,9 +69,12 @@ const TaskMenagment = ({ tasks, setTasks }) => {
   const onEditTask = (task) => {
     modal.open("Edit new-task", <Form data={task} />);
   };
-  const onDeleteTask = (task) => {
-    setTasks({ type: "delete-task", data: task });
-    setDeletedTasks([...deletedTasks, task]);
+  const onDeleteTask = async (task) => {
+    try {
+      const res = await deleteTask(task.id);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (

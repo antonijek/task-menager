@@ -20,13 +20,6 @@ const Home = ({ tasks }) => {
     setFilteredTasks(filteredArr);
   };
 
-  let wishList = filteredTasks.filter((item) => item.status === "Wish List");
-  let toDo = filteredTasks.filter((item) => item.status === "To-Do List");
-  let inProgress = filteredTasks.filter(
-    (item) => item.status === "In-Progress List"
-  );
-  let done = filteredTasks.filter((item) => item.status === "Done List");
-
   return (
     <div>
       <InputSearch
@@ -37,19 +30,19 @@ const Home = ({ tasks }) => {
       <div className={classes["home"]}>
         <ColumnContainer
           list={tasks.filter((item) => item.status_id === 1)}
-          columnTitle="Wish List"
+          columnTitle="New Task"
         />
         <ColumnContainer
           list={tasks.filter((item) => item.status_id === 2)}
-          columnTitle="To Do"
+          columnTitle="In progress"
         />
         <ColumnContainer
           list={tasks.filter((item) => item.status_id === 3)}
-          columnTitle="In-Progress List"
+          columnTitle="Complete"
         />
         <ColumnContainer
           list={tasks.filter((item) => item.status_id === 4)}
-          columnTitle="Done List"
+          columnTitle="Delete"
         />
       </div>
     </div>

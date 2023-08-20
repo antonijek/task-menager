@@ -1,5 +1,6 @@
 import axios from "axios";
 import { requestInstance } from "../config/requestInstance";
+import { deleteTaskModel } from "./models/taskModels";
 import {
   getAllTasksModel,
   addNewTaskModel,
@@ -43,6 +44,15 @@ export const editTask = async (data, id) => {
   try {
     const res = await requestInstance.put(`${allTasksApi}/${id}`, data);
     const response = editTaskModel(res.data);
+    return response;
+  } catch (err) {
+    Promise.reject(err);
+  }
+};
+export const deleteTask = async (id) => {
+  try {
+    const res = await requestInstance.delete(`${allTasksApi}/${id}`);
+    const response = deleteTaskModel(res.data);
     return response;
   } catch (err) {
     Promise.reject(err);

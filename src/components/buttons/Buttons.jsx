@@ -6,6 +6,7 @@ import { statuses } from "../../constants/statuses";
 import { useNavigate } from "react-router-dom";
 import { useModal } from "../../context/ModalContext";
 import Form from "../form/Form";
+import { getAllTasks } from "../../services/taskServices";
 
 const Buttons = () => {
   const { setAllTasksCopy, tasks, deletedTasks, setDeletedTasks } =
@@ -17,9 +18,13 @@ const Buttons = () => {
     setAllTasksCopy(tasks);
   }, [tasks]);
 
-  const showAllTasks = () => {
-    setAllTasksCopy(tasks);
-  };
+  /*  const showAllTasks = async() => {
+    try{
+      const res = await getAllTasks()
+      
+    }
+   
+  }; */
 
   const showDeletedTasks = () => {
     if (deletedTasks.length < 1) {
@@ -37,7 +42,7 @@ const Buttons = () => {
       <Button
         type="primary"
         className={classes["green-button"]}
-        onClick={(e) => showAllTasks(e)}
+        onClick={(e) => navigate("/task-menagment")}
         text="All tasks"
       />
       <Button

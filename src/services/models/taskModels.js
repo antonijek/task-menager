@@ -11,3 +11,6 @@ export function tasksByStatusesModel(data) {
 export function editTaskModel(data) {
   return data;
 }
+export function deleteTaskModel(data) {
+  return data;
+}

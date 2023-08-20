@@ -11,7 +11,7 @@ const ColumnContainer = ({ list = [], columnTitle = "" }) => {
       </h2>
 
       {list?.map((task, index) => (
-        <Card key={index} title={task.title} description={task.description} />
+        <Card key={index} name={task.name} description={task.description} />
       ))}
     </div>
   );
